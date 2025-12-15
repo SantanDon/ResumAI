@@ -1,0 +1,312 @@
+{
+  "industries": {
+    "technology": {
+      "id": "technology",
+      "name": "Technology",
+      "requiredSections": ["summary", "experience", "skills", "education"],
+      "optionalSections": ["projects", "certifications", "publications", "open-source"],
+      "prioritySkills": [
+        "programming languages",
+        "cloud platforms",
+        "agile methodologies",
+        "data structures",
+        "system design",
+        "DevOps",
+        "API development",
+        "database management"
+      ],
+      "powerWords": [
+        "engineered", "architected", "deployed", "optimized", "automated",
+        "scaled", "integrated", "refactored", "debugged", "migrated",
+        "implemented", "programmed", "streamlined", "modernized"
+      ],
+      "certifications": [
+        "AWS Certified Solutions Architect",
+        "AWS Certified Developer",
+        "Google Cloud Professional",
+        "Azure Solutions Architect",
+        "Kubernetes Administrator (CKA)",
+        "Certified Scrum Master (CSM)",
+        "PMP",
+        "CompTIA Security+"
+      ],
+      "keywords": [
+        "scalable", "microservices", "CI/CD", "DevOps", "API",
+        "cloud-native", "containerization", "Kubernetes", "Docker",
+        "agile", "sprint", "full-stack", "backend", "frontend",
+        "machine learning", "AI", "data pipeline", "REST", "GraphQL"
+      ],
+      "formatPreferences": {
+        "summaryLength": 3,
+        "bulletPointsPerJob": 5,
+        "skillsFormat": "categories"
+      },
+      "outdatedPractices": [
+        "listing Microsoft Office as a skill",
+        "including objective statement",
+        "listing every programming language ever used"
+      ]
+    },
+    "finance": {
+      "id": "finance",
+      "name": "Finance",
+      "requiredSections": ["summary", "experience", "education", "skills", "certifications"],
+      "optionalSections": ["publications", "awards"],
+      "prioritySkills": [
+        "financial modeling",
+        "data analysis",
+        "risk management",
+        "regulatory compliance",
+        "Excel/VBA",
+        "SQL",
+        "Python",
+        "Bloomberg Terminal"
+      ],
+      "powerWords": [
+        "analyzed", "forecasted", "maximized", "generated", "secured",
+        "negotiated", "audited", "consolidated", "mitigated", "quantified",
+        "reduced", "increased", "delivered", "achieved", "surpassed"
+      ],
+      "certifications": [
+        "CFA (Chartered Financial Analyst)",
+        "CPA (Certified Public Accountant)",
+        "FRM (Financial Risk Manager)",
+        "Series 7",
+        "Series 63",
+        "Bloomberg Market Concepts",
+        "CAIA"
+      ],
+      "keywords": [
+        "ROI", "P&L", "EBITDA", "due diligence", "valuation",
+        "portfolio management", "derivatives", "fixed income", "equity",
+        "M&A", "IPO", "hedge fund", "private equity", "compliance",
+        "Basel III", "Dodd-Frank", "SOX"
+      ],
+      "formatPreferences": {
+        "summaryLength": 2,
+        "bulletPointsPerJob": 4,
+        "skillsFormat": "list"
+      },
+      "outdatedPractices": [
+        "not quantifying achievements",
+        "vague descriptions of responsibilities"
+      ]
+    },
+    "healthcare": {
+      "id": "healthcare",
+      "name": "Healthcare",
+      "requiredSections": ["summary", "experience", "education", "certifications", "skills"],
+      "optionalSections": ["publications", "research", "volunteer", "awards"],
+      "prioritySkills": [
+        "patient care",
+        "clinical documentation",
+        "HIPAA compliance",
+        "electronic health records (EHR)",
+        "medical terminology",
+        "diagnostic procedures",
+        "treatment planning"
+      ],
+      "powerWords": [
+        "diagnosed", "treated", "administered", "coordinated", "assessed",
+        "monitored", "educated", "advocated", "collaborated", "implemented",
+        "streamlined", "improved", "reduced", "achieved"
+      ],
+      "certifications": [
+        "RN (Registered Nurse)",
+        "MD",
+        "DO",
+        "PA-C",
+        "NP",
+        "BLS/ACLS",
+        "CCRN",
+        "Board Certifications"
+      ],
+      "keywords": [
+        "patient outcomes", "quality improvement", "evidence-based",
+        "interdisciplinary", "care coordination", "EMR/EHR",
+        "Epic", "Cerner", "clinical protocols", "patient safety",
+        "HIPAA", "Joint Commission", "patient satisfaction"
+      ],
+      "formatPreferences": {
+        "summaryLength": 3,
+        "bulletPointsPerJob": 4,
+        "skillsFormat": "categories"
+      },
+      "outdatedPractices": [
+        "not including license numbers",
+        "omitting certifications"
+      ]
+    },
+    "marketing": {
+      "id": "marketing",
+      "name": "Marketing",
+      "requiredSections": ["summary", "experience", "skills", "education"],
+      "optionalSections": ["portfolio", "certifications", "awards", "publications"],
+      "prioritySkills": [
+        "digital marketing",
+        "SEO/SEM",
+        "content strategy",
+        "social media management",
+        "analytics",
+        "brand management",
+        "campaign management",
+        "marketing automation"
+      ],
+      "powerWords": [
+        "launched", "generated", "increased", "boosted", "captured",
+        "transformed", "revamped", "orchestrated", "championed", "influenced",
+        "persuaded", "articulated", "conceptualized", "strategized"
+      ],
+      "certifications": [
+        "Google Analytics Certified",
+        "Google Ads Certified",
+        "HubSpot Inbound Marketing",
+        "Facebook Blueprint",
+        "Hootsuite Social Marketing",
+        "Content Marketing Institute"
+      ],
+      "keywords": [
+        "ROI", "conversion rate", "CTR", "engagement", "brand awareness",
+        "lead generation", "funnel", "A/B testing", "KPIs", "CRM",
+        "content marketing", "influencer marketing", "viral", "organic growth",
+        "paid media", "earned media", "owned media"
+      ],
+      "formatPreferences": {
+        "summaryLength": 3,
+        "bulletPointsPerJob": 5,
+        "skillsFormat": "list"
+      },
+      "outdatedPractices": [
+        "not including metrics",
+        "generic descriptions without results"
+      ]
+    },
+    "engineering": {
+      "id": "engineering",
+      "name": "Engineering",
+      "requiredSections": ["summary", "experience", "education", "skills", "certifications"],
+      "optionalSections": ["projects", "patents", "publications"],
+      "prioritySkills": [
+        "CAD software",
+        "project management",
+        "technical documentation",
+        "quality assurance",
+        "regulatory compliance",
+        "problem-solving",
+        "data analysis"
+      ],
+      "powerWords": [
+        "engineered", "designed", "developed", "optimized", "tested",
+        "validated", "implemented", "standardized", "troubleshot", "resolved",
+        "pioneered", "streamlined", "automated", "reduced"
+      ],
+      "certifications": [
+        "PE (Professional Engineer)",
+        "PMP",
+        "Six Sigma Green/Black Belt",
+        "LEED",
+        "AutoCAD Certified",
+        "SolidWorks Certified"
+      ],
+      "keywords": [
+        "specifications", "tolerances", "prototyping", "testing",
+        "quality control", "lean manufacturing", "continuous improvement",
+        "root cause analysis", "failure analysis", "compliance",
+        "ISO 9001", "safety standards", "technical drawings"
+      ],
+      "formatPreferences": {
+        "summaryLength": 2,
+        "bulletPointsPerJob": 5,
+        "skillsFormat": "categories"
+      },
+      "outdatedPractices": [
+        "not mentioning specific tools/software",
+        "omitting project outcomes"
+      ]
+    },
+    "education": {
+      "id": "education",
+      "name": "Education",
+      "requiredSections": ["summary", "experience", "education", "certifications", "skills"],
+      "optionalSections": ["publications", "presentations", "awards", "volunteer"],
+      "prioritySkills": [
+        "curriculum development",
+        "classroom management",
+        "student assessment",
+        "differentiated instruction",
+        "educational technology",
+        "parent communication",
+        "IEP development"
+      ],
+      "powerWords": [
+        "educated", "mentored", "coached", "facilitated", "developed",
+        "implemented", "assessed", "improved", "collaborated", "coordinated",
+        "championed", "cultivated", "empowered", "unified"
+      ],
+      "certifications": [
+        "State Teaching License",
+        "National Board Certification",
+        "ESL/TESOL Certification",
+        "Special Education Certification",
+        "Google Certified Educator",
+        "Apple Teacher"
+      ],
+      "keywords": [
+        "student outcomes", "learning objectives", "assessment",
+        "differentiation", "engagement", "classroom management",
+        "curriculum", "standards-based", "data-driven instruction",
+        "professional development", "parent engagement", "IEP"
+      ],
+      "formatPreferences": {
+        "summaryLength": 3,
+        "bulletPointsPerJob": 4,
+        "skillsFormat": "list"
+      },
+      "outdatedPractices": [
+        "not including student outcome data",
+        "generic teaching descriptions"
+      ]
+    },
+    "legal": {
+      "id": "legal",
+      "name": "Legal",
+      "requiredSections": ["summary", "experience", "education", "bar-admissions", "skills"],
+      "optionalSections": ["publications", "presentations", "pro-bono", "awards"],
+      "prioritySkills": [
+        "legal research",
+        "contract drafting",
+        "litigation",
+        "negotiation",
+        "client counseling",
+        "regulatory compliance",
+        "due diligence"
+      ],
+      "powerWords": [
+        "negotiated", "litigated", "drafted", "counseled", "advocated",
+        "mediated", "resolved", "secured", "represented", "analyzed",
+        "investigated", "formulated", "articulated", "persuaded"
+      ],
+      "certifications": [
+        "Bar Admission (State)",
+        "Patent Bar",
+        "Certified Mediator",
+        "CIPP (Privacy Professional)"
+      ],
+      "keywords": [
+        "litigation", "transactional", "corporate law", "intellectual property",
+        "mergers & acquisitions", "due diligence", "contract negotiation",
+        "regulatory compliance", "discovery", "depositions", "briefs",
+        "motions", "settlement", "trial"
+      ],
+      "formatPreferences": {
+        "summaryLength": 2,
+        "bulletPointsPerJob": 4,
+        "skillsFormat": "list"
+      },
+      "outdatedPractices": [
+        "not listing bar admissions prominently",
+        "omitting case outcomes"
+      ]
+    }
+  }
+}

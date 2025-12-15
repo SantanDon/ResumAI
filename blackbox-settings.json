@@ -1,0 +1,21 @@
+{
+  "model": "qwen3-vl:2b",
+  "selectedAuthType": "openai",
+  "security": {
+    "auth": {
+      "google": {
+        "apiKey": "AIzaSyBualQJ8ApFsgyltPjsKG7xUXX5KYZOx4o\n",
+        "baseUrl": "https://generativelanguage.googleapis.com",
+        "model": "gemini-2.5-pro"
+      },
+      "openai": {
+        "apiKey": "ollama",
+        "baseUrl": "http://localhost:11434/v1",
+        "model": "qwen3-vl:2b"
+      },
+      "selectedType": "openai",
+      "selectedProvider": "openai"
+    }
+  },
+  "hasSeenIdeIntegrationNudge": true
+}

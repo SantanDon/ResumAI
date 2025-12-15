@@ -1,0 +1,59 @@
+# ResumAI: A Dynamic CV Creation and Career Development Platform
+
+## 1. High-Level Vision
+
+To create a web-based application, "ResumAI," that empowers users to not only build and modernize their CVs but also to strategically plan their career development. The platform will help users attract employers by creating tailored, professional application materials and providing actionable insights.
+
+## 2. Core Concept: The "MASTER_CV"
+
+The central pillar of ResumAI is the **MASTER_CV**. This is a comprehensive, private database where a user stores their entire professional history: every job, skill, certification, project, and educational achievement.
+
+From this MASTER_CV, users can quickly generate and export multiple, distinct CVs, each tailored to a specific job application by selecting the most relevant information.
+
+## 3. Key User Journeys
+
+The application will cater to two primary user types:
+
+*   **Path A: The "Builder" (For Newcomers or those starting fresh)**
+    *   A guided, step-by-step wizard that walks the user through creating their MASTER_CV from scratch.
+    *   Provides helpful tips and examples at each stage.
+    *   Focuses on building a strong foundational document.
+
+*   **Path B: The "Refiner" (For users with an existing CV)**
+    *   Allows users to upload their current CV (e.g., PDF, DOCX).
+    *   The system will parse the document to automatically populate the MASTER_CV.
+    *   The user can then clean up the imported data, apply modern templates, and get suggestions for improvement. 
+
+## 4. Feature Roadmap
+3
+### Phase 1: The Prototype (MVP)
+
+This phase focuses on delivering the core functionality with a polished user experience.
+
+*   **Application Framework:** A single-page web app built with **React (TypeScript)** and styled with **Bootstrap** following Material Design principles.
+*   **The "Builder" Path:** Full implementation of the guided wizard to create the MASTER_CV.
+*   **CV Sections:** Support for Personal Details, Work Experience, Education, Skills, and Portfolio Integration (e.g., GitHub links).
+*   **Template Selection:** A choice of several modern, professionally designed CV templates.
+*   **Live Preview:** A real-time preview of the selected template populated with the user's data.
+*   **PDF Export:** Ability to download the tailored CV as a high-quality PDF using a library like `jspdf`.
+*   **Mock AI Suggestions:** A simple, non-dynamic list of suggested skills based on a selected job title to demonstrate the concept.
+
+### Phase 2: Advanced Features & AI Integration
+
+This phase builds on the MVP to incorporate the advanced analytics and AI-powered features.
+
+*   **The "Refiner" Path:** Full implementation of CV parsing to automate data import.
+*   **Dynamic AI Suggestions:**
+    *   **Skills Gap Analysis:** Allow users to paste a job description URL, and the AI will analyze it to identify missing keywords and skills on their CV.
+    *   **Action Verb Optimization:** Suggest more impactful verbs for achievement descriptions.
+    *   **Micro-course Recommendations:** Suggest relevant online courses or certifications to fill identified skill gaps.
+*   **Multi-CV Management:** An enhanced dashboard to manage all generated CVs from the MASTER_CV.
+*   **Identify Success Patterns:** Analyze job market trends to suggest in-demand skills.
+
+### Phase 3: "Career DNA" Vision
+
+The long-term vision for the platform.
+
+*   **Predictive Career Pathing:** Analyze a user's "Career DNA" (their unique trajectory) to suggest optimal career pivots and unexpected skill combinations.
+*   **Confidence/Persuasion Scoring:** Use NLP to score the persuasive power of the language used in the CV.
+*   **ROI Tracking:** Help users track the "Return on Investment" of skills and certifications on their career progression.

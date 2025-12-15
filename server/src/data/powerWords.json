@@ -1,0 +1,778 @@
+{
+  "powerWords": [
+    {
+      "word": "spearheaded",
+      "category": "leadership",
+      "strength": 5,
+      "industries": ["technology", "marketing", "finance", "healthcare"],
+      "replacesWeakWords": ["led", "managed", "headed", "was in charge of"]
+    },
+    {
+      "word": "orchestrated",
+      "category": "leadership",
+      "strength": 5,
+      "industries": ["marketing", "finance", "education"],
+      "replacesWeakWords": ["organized", "coordinated", "arranged"]
+    },
+    {
+      "word": "championed",
+      "category": "leadership",
+      "strength": 5,
+      "industries": ["marketing", "healthcare", "education"],
+      "replacesWeakWords": ["supported", "promoted", "advocated"]
+    },
+    {
+      "word": "pioneered",
+      "category": "leadership",
+      "strength": 5,
+      "industries": ["technology", "healthcare", "engineering"],
+      "replacesWeakWords": ["started", "began", "initiated"]
+    },
+    {
+      "word": "directed",
+      "category": "leadership",
+      "strength": 4,
+      "industries": ["finance", "marketing", "legal"],
+      "replacesWeakWords": ["managed", "oversaw", "supervised"]
+    },
+    {
+      "word": "mentored",
+      "category": "leadership",
+      "strength": 4,
+      "industries": ["education", "technology", "healthcare"],
+      "replacesWeakWords": ["trained", "taught", "helped"]
+    },
+    {
+      "word": "mobilized",
+      "category": "leadership",
+      "strength": 4,
+      "industries": ["marketing", "healthcare", "education"],
+      "replacesWeakWords": ["gathered", "assembled", "brought together"]
+    },
+    {
+      "word": "galvanized",
+      "category": "leadership",
+      "strength": 5,
+      "industries": ["marketing", "education"],
+      "replacesWeakWords": ["motivated", "inspired", "encouraged"]
+    },
+    {
+      "word": "steered",
+      "category": "leadership",
+      "strength": 4,
+      "industries": ["finance", "technology", "engineering"],
+      "replacesWeakWords": ["guided", "directed", "led"]
+    },
+    {
+      "word": "cultivated",
+      "category": "leadership",
+      "strength": 4,
+      "industries": ["marketing", "education", "healthcare"],
+      "replacesWeakWords": ["developed", "built", "grew"]
+    },
+    {
+      "word": "empowered",
+      "category": "leadership",
+      "strength": 4,
+      "industries": ["education", "healthcare", "technology"],
+      "replacesWeakWords": ["enabled", "allowed", "helped"]
+    },
+    {
+      "word": "unified",
+      "category": "leadership",
+      "strength": 4,
+      "industries": ["marketing", "education"],
+      "replacesWeakWords": ["brought together", "combined", "merged"]
+    },
+    {
+      "word": "accelerated",
+      "category": "achievement",
+      "strength": 5,
+      "industries": ["technology", "finance", "marketing"],
+      "replacesWeakWords": ["sped up", "quickened", "made faster"]
+    },
+    {
+      "word": "achieved",
+      "category": "achievement",
+      "strength": 4,
+      "industries": ["finance", "marketing", "technology", "healthcare", "engineering", "education", "legal"],
+      "replacesWeakWords": ["got", "reached", "attained"]
+    },
+    {
+      "word": "surpassed",
+      "category": "achievement",
+      "strength": 5,
+      "industries": ["finance", "marketing", "technology"],
+      "replacesWeakWords": ["exceeded", "beat", "went beyond"]
+    },
+    {
+      "word": "delivered",
+      "category": "achievement",
+      "strength": 4,
+      "industries": ["technology", "marketing", "finance"],
+      "replacesWeakWords": ["gave", "provided", "completed"]
+    },
+    {
+      "word": "generated",
+      "category": "achievement",
+      "strength": 4,
+      "industries": ["finance", "marketing", "technology"],
+      "replacesWeakWords": ["made", "created", "produced"]
+    },
+    {
+      "word": "maximized",
+      "category": "achievement",
+      "strength": 5,
+      "industries": ["finance", "marketing", "technology"],
+      "replacesWeakWords": ["increased", "improved", "boosted"]
+    },
+    {
+      "word": "outperformed",
+      "category": "achievement",
+      "strength": 5,
+      "industries": ["finance", "marketing", "technology"],
+      "replacesWeakWords": ["did better than", "beat", "exceeded"]
+    },
+    {
+      "word": "transformed",
+      "category": "achievement",
+      "strength": 5,
+      "industries": ["technology", "marketing", "healthcare"],
+      "replacesWeakWords": ["changed", "modified", "updated"]
+    },
+    {
+      "word": "boosted",
+      "category": "achievement",
+      "strength": 4,
+      "industries": ["marketing", "finance", "technology"],
+      "replacesWeakWords": ["increased", "raised", "improved"]
+    },
+    {
+      "word": "captured",
+      "category": "achievement",
+      "strength": 4,
+      "industries": ["marketing", "finance"],
+      "replacesWeakWords": ["got", "obtained", "acquired"]
+    },
+    {
+      "word": "doubled",
+      "category": "achievement",
+      "strength": 5,
+      "industries": ["finance", "marketing", "technology"],
+      "replacesWeakWords": ["increased", "grew"]
+    },
+    {
+      "word": "tripled",
+      "category": "achievement",
+      "strength": 5,
+      "industries": ["finance", "marketing", "technology"],
+      "replacesWeakWords": ["increased", "grew"]
+    },
+    {
+      "word": "slashed",
+      "category": "achievement",
+      "strength": 5,
+      "industries": ["finance", "technology", "engineering"],
+      "replacesWeakWords": ["reduced", "cut", "decreased"]
+    },
+    {
+      "word": "engineered",
+      "category": "technical",
+      "strength": 5,
+      "industries": ["technology", "engineering"],
+      "replacesWeakWords": ["built", "made", "created", "developed"]
+    },
+    {
+      "word": "architected",
+      "category": "technical",
+      "strength": 5,
+      "industries": ["technology", "engineering"],
+      "replacesWeakWords": ["designed", "planned", "structured"]
+    },
+    {
+      "word": "automated",
+      "category": "technical",
+      "strength": 5,
+      "industries": ["technology", "engineering", "finance"],
+      "replacesWeakWords": ["made automatic", "set up"]
+    },
+    {
+      "word": "deployed",
+      "category": "technical",
+      "strength": 4,
+      "industries": ["technology", "engineering"],
+      "replacesWeakWords": ["launched", "released", "put out"]
+    },
+    {
+      "word": "optimized",
+      "category": "technical",
+      "strength": 5,
+      "industries": ["technology", "engineering", "finance"],
+      "replacesWeakWords": ["improved", "made better", "enhanced"]
+    },
+    {
+      "word": "integrated",
+      "category": "technical",
+      "strength": 4,
+      "industries": ["technology", "engineering", "healthcare"],
+      "replacesWeakWords": ["combined", "merged", "connected"]
+    },
+    {
+      "word": "streamlined",
+      "category": "technical",
+      "strength": 5,
+      "industries": ["technology", "finance", "healthcare"],
+      "replacesWeakWords": ["simplified", "made easier", "improved"]
+    },
+    {
+      "word": "programmed",
+      "category": "technical",
+      "strength": 4,
+      "industries": ["technology", "engineering"],
+      "replacesWeakWords": ["coded", "wrote", "developed"]
+    },
+    {
+      "word": "debugged",
+      "category": "technical",
+      "strength": 4,
+      "industries": ["technology", "engineering"],
+      "replacesWeakWords": ["fixed", "repaired", "solved"]
+    },
+    {
+      "word": "refactored",
+      "category": "technical",
+      "strength": 4,
+      "industries": ["technology"],
+      "replacesWeakWords": ["rewrote", "restructured", "improved"]
+    },
+    {
+      "word": "migrated",
+      "category": "technical",
+      "strength": 4,
+      "industries": ["technology", "engineering"],
+      "replacesWeakWords": ["moved", "transferred", "converted"]
+    },
+    {
+      "word": "scaled",
+      "category": "technical",
+      "strength": 5,
+      "industries": ["technology", "engineering", "finance"],
+      "replacesWeakWords": ["grew", "expanded", "increased"]
+    },
+    {
+      "word": "implemented",
+      "category": "technical",
+      "strength": 4,
+      "industries": ["technology", "engineering", "healthcare"],
+      "replacesWeakWords": ["did", "made", "put in place"]
+    },
+    {
+      "word": "configured",
+      "category": "technical",
+      "strength": 3,
+      "industries": ["technology", "engineering"],
+      "replacesWeakWords": ["set up", "arranged"]
+    },
+    {
+      "word": "diagnosed",
+      "category": "technical",
+      "strength": 4,
+      "industries": ["healthcare", "technology", "engineering"],
+      "replacesWeakWords": ["found", "identified", "discovered"]
+    },
+    {
+      "word": "articulated",
+      "category": "communication",
+      "strength": 5,
+      "industries": ["marketing", "legal", "education"],
+      "replacesWeakWords": ["explained", "said", "communicated"]
+    },
+    {
+      "word": "negotiated",
+      "category": "communication",
+      "strength": 5,
+      "industries": ["finance", "legal", "marketing"],
+      "replacesWeakWords": ["discussed", "talked about", "worked out"]
+    },
+    {
+      "word": "persuaded",
+      "category": "communication",
+      "strength": 5,
+      "industries": ["marketing", "legal", "finance"],
+      "replacesWeakWords": ["convinced", "got to agree"]
+    },
+    {
+      "word": "presented",
+      "category": "communication",
+      "strength": 4,
+      "industries": ["marketing", "finance", "education", "technology"],
+      "replacesWeakWords": ["showed", "gave", "displayed"]
+    },
+    {
+      "word": "collaborated",
+      "category": "communication",
+      "strength": 4,
+      "industries": ["technology", "marketing", "healthcare", "education"],
+      "replacesWeakWords": ["worked with", "teamed up with"]
+    },
+    {
+      "word": "facilitated",
+      "category": "communication",
+      "strength": 4,
+      "industries": ["education", "healthcare", "marketing"],
+      "replacesWeakWords": ["helped", "made easier", "enabled"]
+    },
+    {
+      "word": "influenced",
+      "category": "communication",
+      "strength": 5,
+      "industries": ["marketing", "finance", "legal"],
+      "replacesWeakWords": ["affected", "changed", "impacted"]
+    },
+    {
+      "word": "liaised",
+      "category": "communication",
+      "strength": 4,
+      "industries": ["finance", "legal", "healthcare"],
+      "replacesWeakWords": ["communicated", "connected", "worked with"]
+    },
+    {
+      "word": "mediated",
+      "category": "communication",
+      "strength": 4,
+      "industries": ["legal", "healthcare", "education"],
+      "replacesWeakWords": ["helped resolve", "settled"]
+    },
+    {
+      "word": "advocated",
+      "category": "communication",
+      "strength": 4,
+      "industries": ["legal", "healthcare", "education"],
+      "replacesWeakWords": ["supported", "promoted", "pushed for"]
+    },
+    {
+      "word": "briefed",
+      "category": "communication",
+      "strength": 3,
+      "industries": ["legal", "finance", "marketing"],
+      "replacesWeakWords": ["told", "informed", "updated"]
+    },
+    {
+      "word": "consulted",
+      "category": "communication",
+      "strength": 4,
+      "industries": ["healthcare", "legal", "finance", "technology"],
+      "replacesWeakWords": ["advised", "helped", "guided"]
+    },
+    {
+      "word": "resolved",
+      "category": "problem-solving",
+      "strength": 5,
+      "industries": ["technology", "healthcare", "legal", "finance"],
+      "replacesWeakWords": ["fixed", "solved", "dealt with"]
+    },
+    {
+      "word": "troubleshot",
+      "category": "problem-solving",
+      "strength": 5,
+      "industries": ["technology", "engineering"],
+      "replacesWeakWords": ["fixed", "debugged", "solved"]
+    },
+    {
+      "word": "analyzed",
+      "category": "problem-solving",
+      "strength": 4,
+      "industries": ["finance", "technology", "healthcare", "marketing"],
+      "replacesWeakWords": ["looked at", "reviewed", "studied"]
+    },
+    {
+      "word": "investigated",
+      "category": "problem-solving",
+      "strength": 4,
+      "industries": ["legal", "healthcare", "technology"],
+      "replacesWeakWords": ["looked into", "checked", "examined"]
+    },
+    {
+      "word": "identified",
+      "category": "problem-solving",
+      "strength": 4,
+      "industries": ["technology", "healthcare", "finance", "marketing"],
+      "replacesWeakWords": ["found", "discovered", "noticed"]
+    },
+    {
+      "word": "devised",
+      "category": "problem-solving",
+      "strength": 5,
+      "industries": ["technology", "engineering", "marketing"],
+      "replacesWeakWords": ["created", "made", "came up with"]
+    },
+    {
+      "word": "formulated",
+      "category": "problem-solving",
+      "strength": 5,
+      "industries": ["healthcare", "finance", "legal"],
+      "replacesWeakWords": ["created", "developed", "made"]
+    },
+    {
+      "word": "overhauled",
+      "category": "problem-solving",
+      "strength": 5,
+      "industries": ["technology", "engineering", "finance"],
+      "replacesWeakWords": ["changed", "updated", "fixed"]
+    },
+    {
+      "word": "revamped",
+      "category": "problem-solving",
+      "strength": 5,
+      "industries": ["marketing", "technology"],
+      "replacesWeakWords": ["changed", "updated", "improved"]
+    },
+    {
+      "word": "restructured",
+      "category": "problem-solving",
+      "strength": 5,
+      "industries": ["finance", "technology", "engineering"],
+      "replacesWeakWords": ["changed", "reorganized", "modified"]
+    },
+    {
+      "word": "reengineered",
+      "category": "problem-solving",
+      "strength": 5,
+      "industries": ["technology", "engineering"],
+      "replacesWeakWords": ["rebuilt", "redesigned", "remade"]
+    },
+    {
+      "word": "eliminated",
+      "category": "problem-solving",
+      "strength": 5,
+      "industries": ["finance", "technology", "healthcare"],
+      "replacesWeakWords": ["removed", "got rid of", "stopped"]
+    },
+    {
+      "word": "mitigated",
+      "category": "problem-solving",
+      "strength": 5,
+      "industries": ["finance", "legal", "healthcare"],
+      "replacesWeakWords": ["reduced", "lessened", "minimized"]
+    },
+    {
+      "word": "forecasted",
+      "category": "achievement",
+      "strength": 4,
+      "industries": ["finance", "marketing"],
+      "replacesWeakWords": ["predicted", "estimated", "guessed"]
+    },
+    {
+      "word": "secured",
+      "category": "achievement",
+      "strength": 5,
+      "industries": ["finance", "legal", "technology"],
+      "replacesWeakWords": ["got", "obtained", "acquired"]
+    },
+    {
+      "word": "launched",
+      "category": "achievement",
+      "strength": 5,
+      "industries": ["technology", "marketing"],
+      "replacesWeakWords": ["started", "began", "released"]
+    },
+    {
+      "word": "established",
+      "category": "achievement",
+      "strength": 4,
+      "industries": ["finance", "legal", "education"],
+      "replacesWeakWords": ["set up", "created", "started"]
+    },
+    {
+      "word": "founded",
+      "category": "leadership",
+      "strength": 5,
+      "industries": ["technology", "finance", "education"],
+      "replacesWeakWords": ["started", "created", "began"]
+    },
+    {
+      "word": "initiated",
+      "category": "leadership",
+      "strength": 4,
+      "industries": ["technology", "marketing", "healthcare"],
+      "replacesWeakWords": ["started", "began", "kicked off"]
+    },
+    {
+      "word": "supervised",
+      "category": "leadership",
+      "strength": 4,
+      "industries": ["education", "healthcare", "engineering"],
+      "replacesWeakWords": ["watched over", "managed", "oversaw"]
+    },
+    {
+      "word": "delegated",
+      "category": "leadership",
+      "strength": 4,
+      "industries": ["finance", "technology", "healthcare"],
+      "replacesWeakWords": ["assigned", "gave tasks to"]
+    },
+    {
+      "word": "recruited",
+      "category": "leadership",
+      "strength": 4,
+      "industries": ["technology", "healthcare", "education"],
+      "replacesWeakWords": ["hired", "brought in", "found"]
+    },
+    {
+      "word": "onboarded",
+      "category": "leadership",
+      "strength": 4,
+      "industries": ["technology", "healthcare"],
+      "replacesWeakWords": ["trained", "introduced", "brought up to speed"]
+    },
+    {
+      "word": "modernized",
+      "category": "technical",
+      "strength": 5,
+      "industries": ["technology", "finance", "healthcare"],
+      "replacesWeakWords": ["updated", "improved", "upgraded"]
+    },
+    {
+      "word": "standardized",
+      "category": "technical",
+      "strength": 4,
+      "industries": ["technology", "healthcare", "engineering"],
+      "replacesWeakWords": ["made consistent", "unified"]
+    },
+    {
+      "word": "customized",
+      "category": "technical",
+      "strength": 4,
+      "industries": ["technology", "marketing"],
+      "replacesWeakWords": ["changed", "modified", "adapted"]
+    },
+    {
+      "word": "validated",
+      "category": "technical",
+      "strength": 4,
+      "industries": ["technology", "healthcare", "engineering"],
+      "replacesWeakWords": ["checked", "verified", "confirmed"]
+    },
+    {
+      "word": "tested",
+      "category": "technical",
+      "strength": 3,
+      "industries": ["technology", "healthcare", "engineering"],
+      "replacesWeakWords": ["checked", "tried"]
+    },
+    {
+      "word": "documented",
+      "category": "communication",
+      "strength": 3,
+      "industries": ["technology", "healthcare", "legal"],
+      "replacesWeakWords": ["wrote down", "recorded"]
+    },
+    {
+      "word": "authored",
+      "category": "communication",
+      "strength": 4,
+      "industries": ["education", "legal", "marketing"],
+      "replacesWeakWords": ["wrote", "created"]
+    },
+    {
+      "word": "drafted",
+      "category": "communication",
+      "strength": 3,
+      "industries": ["legal", "marketing", "finance"],
+      "replacesWeakWords": ["wrote", "created"]
+    },
+    {
+      "word": "synthesized",
+      "category": "problem-solving",
+      "strength": 5,
+      "industries": ["healthcare", "education", "technology"],
+      "replacesWeakWords": ["combined", "put together", "merged"]
+    },
+    {
+      "word": "evaluated",
+      "category": "problem-solving",
+      "strength": 4,
+      "industries": ["finance", "healthcare", "education"],
+      "replacesWeakWords": ["assessed", "judged", "reviewed"]
+    },
+    {
+      "word": "assessed",
+      "category": "problem-solving",
+      "strength": 4,
+      "industries": ["healthcare", "education", "finance"],
+      "replacesWeakWords": ["evaluated", "checked", "reviewed"]
+    },
+    {
+      "word": "audited",
+      "category": "problem-solving",
+      "strength": 5,
+      "industries": ["finance", "healthcare", "legal"],
+      "replacesWeakWords": ["checked", "reviewed", "examined"]
+    },
+    {
+      "word": "benchmarked",
+      "category": "problem-solving",
+      "strength": 4,
+      "industries": ["finance", "technology", "marketing"],
+      "replacesWeakWords": ["compared", "measured against"]
+    },
+    {
+      "word": "quantified",
+      "category": "achievement",
+      "strength": 4,
+      "industries": ["finance", "technology", "marketing"],
+      "replacesWeakWords": ["measured", "counted", "calculated"]
+    },
+    {
+      "word": "reduced",
+      "category": "achievement",
+      "strength": 4,
+      "industries": ["finance", "technology", "healthcare"],
+      "replacesWeakWords": ["cut", "lowered", "decreased"]
+    },
+    {
+      "word": "increased",
+      "category": "achievement",
+      "strength": 4,
+      "industries": ["finance", "marketing", "technology"],
+      "replacesWeakWords": ["raised", "grew", "boosted"]
+    },
+    {
+      "word": "expanded",
+      "category": "achievement",
+      "strength": 4,
+      "industries": ["marketing", "finance", "technology"],
+      "replacesWeakWords": ["grew", "increased", "extended"]
+    },
+    {
+      "word": "consolidated",
+      "category": "achievement",
+      "strength": 4,
+      "industries": ["finance", "technology"],
+      "replacesWeakWords": ["combined", "merged", "unified"]
+    },
+    {
+      "word": "centralized",
+      "category": "technical",
+      "strength": 4,
+      "industries": ["technology", "finance"],
+      "replacesWeakWords": ["combined", "unified", "brought together"]
+    },
+    {
+      "word": "decentralized",
+      "category": "technical",
+      "strength": 4,
+      "industries": ["technology", "finance"],
+      "replacesWeakWords": ["distributed", "spread out"]
+    },
+    {
+      "word": "conceptualized",
+      "category": "problem-solving",
+      "strength": 5,
+      "industries": ["marketing", "technology", "education"],
+      "replacesWeakWords": ["thought of", "came up with", "imagined"]
+    },
+    {
+      "word": "strategized",
+      "category": "problem-solving",
+      "strength": 5,
+      "industries": ["marketing", "finance", "technology"],
+      "replacesWeakWords": ["planned", "figured out"]
+    },
+    {
+      "word": "executed",
+      "category": "achievement",
+      "strength": 4,
+      "industries": ["technology", "marketing", "finance"],
+      "replacesWeakWords": ["did", "completed", "carried out"]
+    },
+    {
+      "word": "finalized",
+      "category": "achievement",
+      "strength": 3,
+      "industries": ["legal", "finance", "marketing"],
+      "replacesWeakWords": ["finished", "completed"]
+    },
+    {
+      "word": "coordinated",
+      "category": "communication",
+      "strength": 4,
+      "industries": ["healthcare", "education", "marketing"],
+      "replacesWeakWords": ["organized", "arranged", "managed"]
+    },
+    {
+      "word": "educated",
+      "category": "communication",
+      "strength": 4,
+      "industries": ["education", "healthcare"],
+      "replacesWeakWords": ["taught", "trained", "informed"]
+    },
+    {
+      "word": "coached",
+      "category": "leadership",
+      "strength": 4,
+      "industries": ["education", "healthcare", "technology"],
+      "replacesWeakWords": ["trained", "taught", "guided"]
+    }
+  ],
+  "weakWords": [
+    "helped",
+    "worked on",
+    "assisted",
+    "was responsible for",
+    "handled",
+    "dealt with",
+    "participated in",
+    "was involved in",
+    "contributed to",
+    "supported",
+    "aided",
+    "did",
+    "made",
+    "got",
+    "had",
+    "used",
+    "tried",
+    "attempted",
+    "worked with",
+    "was part of",
+    "took part in",
+    "was tasked with",
+    "was assigned to",
+    "helped with",
+    "assisted in"
+  ],
+  "cliches": [
+    "team player",
+    "hard worker",
+    "detail-oriented",
+    "results-driven",
+    "self-starter",
+    "think outside the box",
+    "go-getter",
+    "people person",
+    "synergy",
+    "leverage",
+    "proactive",
+    "dynamic",
+    "passionate",
+    "motivated",
+    "dedicated",
+    "committed",
+    "excellent communication skills",
+    "strong work ethic",
+    "fast learner",
+    "multitasker",
+    "problem solver",
+    "strategic thinker",
+    "innovative",
+    "creative",
+    "driven",
+    "enthusiastic",
+    "responsible for",
+    "duties included",
+    "references available upon request",
+    "salary negotiable"
+  ]
+}
+
