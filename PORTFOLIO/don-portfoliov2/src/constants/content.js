@@ -33,8 +33,7 @@ export const ABOUT_CONTENT = {
 export const STATS = [
   { value: "3", label: "Live Products" },
   { value: "1,000+", label: "Commits" },
-  { value: "5-Worker", label: "AI Swarms" },
-  { value: "0%", label: "Hallucination Rate" }
+  { value: "5-Worker", label: "AI Swarms" }
 ];
 
 export const PROJECTS = [
@@ -56,9 +55,9 @@ export const PROJECTS = [
   },
   {
     id: 'photoshop-portfolio',
-    title: 'Design Systems Lab',
-    description: 'A playground for high-fidelity user interface concepts, interactive layouts, and custom WebGL background shader integrations built to test physics-based UI springs and motion paths.',
-    tech: ['HTML5', 'CSS3', 'JavaScript', 'WebGL', 'Framer Motion'],
+    title: 'Creative Artworks & Design Lab',
+    description: 'A premium gallery showcasing custom photo manipulations, digital editing, and visual assets. Integrated with interactive layouts designed using Figma and Framer, demonstrating a strong foundation in visual storytelling, UI/UX design, and creative tools like Adobe Photoshop and Canva.',
+    tech: ['Photoshop', 'Figma', 'Framer', 'Canva', 'HTML5', 'CSS3'],
     liveLink: 'https://santandon-photoshop-v2.vercel.app/',
     sourceLink: '#'
   }

@@ -5,7 +5,7 @@ import BackgroundShader from './components/BackgroundShader'
 import FuzzyText from './components/FuzzyText'
 import { ABOUT_CONTENT, PROJECTS, CONTACT_CONTENT, STATS } from './constants/content'
 
-const SECTIONS = ['Hero', 'About', 'Education', 'Work', 'Contact'];
+const SECTIONS = ['Hero', 'About', 'Skills', 'Education', 'Work', 'Contact'];
 
 const App = () => {
   const [currentSection, setCurrentSection] = useState(0)
@@ -161,7 +161,7 @@ const App = () => {
               </div>
 
               {/* STATS STRIP */}
-              <div className="stats-strip" style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: '1rem', margin: '2.5rem 0 3rem 0', textAlign: 'center' }}>
+              <div className="stats-strip" style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', gap: '1rem', margin: '2.5rem 0 0 0', textAlign: 'center' }}>
                 {STATS.map((stat, idx) => (
                   <div key={idx} className="stat-card" style={{ background: 'var(--card-bg)', border: '1px solid var(--border)', borderRadius: '12px', padding: '1.2rem' }}>
                     <div style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--accent)' }}>{stat.value}</div>
@@ -169,17 +169,30 @@ const App = () => {
                   </div>
                 ))}
               </div>
+            </div>
+          </motion.section>
+        )}
 
-              {/* Skills */}
-              <div className="skills-container">
-                <h3 className="subsection-title">Skills</h3>
-                <div className="skills-grid" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
+        {/* SKILLS SECTION */}
+        {currentSection === 2 && (
+          <motion.section
+            key="skills"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="section skills-section"
+          >
+            <div className="about-container">
+              <h2 className="section-title">Skills & Competencies</h2>
+              <div className="skills-container" style={{ width: '100%', marginTop: '1rem' }}>
+                <div className="skills-grid" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '1.5rem' }}>
                   {ABOUT_CONTENT.skills.map((category, i) => (
-                    <div key={i} className="skill-category">
-                      <h4>{category.category}</h4>
-                      <div className="skill-tags">
+                    <div key={i} className="skill-category" style={{ padding: '1.5rem', background: 'var(--card-bg)', border: '1px solid var(--border)', borderRadius: '12px', textAlign: 'center' }}>
+                      <h4 style={{ fontSize: '0.95rem', fontWeight: '600', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '1.25rem' }}>{category.category}</h4>
+                      <div className="skill-tags" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'center' }}>
                         {category.items.map((skill, j) => (
-                          <span key={j} className="skill-tag">{skill.name}</span>
+                          <span key={j} className="skill-tag" style={{ padding: '0.4rem 0.8rem', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', borderRadius: '20px', fontSize: '0.8rem' }}>{skill.name}</span>
                         ))}
                       </div>
                     </div>
@@ -191,7 +204,7 @@ const App = () => {
         )}
 
         {/* EDUCATION SECTION */}
-        {currentSection === 2 && (
+        {currentSection === 3 && (
           <motion.section
             key="education"
             initial={{ opacity: 0 }}
@@ -238,7 +251,7 @@ const App = () => {
         )}
 
         {/* PROJECTS SECTION */}
-        {currentSection === 3 && (
+        {currentSection === 4 && (
           <motion.section
             key="work"
             initial={{ opacity: 0 }}
@@ -249,15 +262,17 @@ const App = () => {
           >
             <div className="projects-container">
               <h2 className="section-title">Projects</h2>
-              <div className="projects-grid">
+              <div className="projects-grid" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
                 {PROJECTS.map((project, i) => (
-                  <div key={i} className="project-card">
-                    <h3>{project.title}</h3>
-                    <p>{project.description}</p>
-                    <div className="project-tech">
-                      {project.tech.map((t, j) => (
-                        <span key={j} className="tech-tag">{t}</span>
-                      ))}
+                  <div key={i} className="project-card" style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between', padding: '1.5rem', background: 'var(--card-bg)', border: '1px solid var(--border)', borderRadius: '12px' }}>
+                    <div>
+                      <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '0.75rem', color: '#fff' }}>{project.title}</h3>
+                      <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: '1.6', marginBottom: '1.25rem' }}>{project.description}</p>
+                      <div className="project-tech" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '1.5rem' }}>
+                        {project.tech.map((t, j) => (
+                          <span key={j} className="tech-tag" style={{ background: 'rgba(209, 154, 154, 0.12)', border: '1px solid rgba(209, 154, 154, 0.25)', color: '#d19a9a', borderRadius: '4px', padding: '0.2rem 0.5rem', fontSize: '0.75rem' }}>{t}</span>
+                        ))}
+                      </div>
                     </div>
                     <a 
                       href={project.liveLink} 
@@ -275,7 +290,7 @@ const App = () => {
         )}
 
         {/* CONTACT SECTION */}
-        {currentSection === 4 && (
+        {currentSection === 5 && (
           <motion.section
             key="contact"
             initial={{ opacity: 0 }}
