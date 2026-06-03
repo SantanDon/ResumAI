@@ -115,9 +115,9 @@ const donSantosCV: JSONResume = {
       url: 'https://studypod-lm.vercel.app/'
     },
     {
-      name: 'Design Systems Lab — High-Fidelity UI Playground',
-      description: 'An experimental showcase for cutting-edge user interfaces, containing complex WebGL shaders, fluid dynamics, glassmorphism components, and spring-physics micro-animations.',
-      keywords: ['HTML5', 'CSS3', 'JavaScript', 'WebGL', 'Framer Motion'],
+      name: 'Creative Artworks & Design Lab',
+      description: 'A premium gallery showcasing custom photo manipulations, digital editing, and visual assets. Integrated with interactive layouts designed using Figma and Framer, demonstrating a strong foundation in visual storytelling, UI/UX design, and creative tools like Adobe Photoshop and Canva.',
+      keywords: ['Photoshop', 'Figma', 'Framer', 'Canva', 'HTML5', 'CSS3'],
       url: 'https://santandon-photoshop-v2.vercel.app/'
     }
   ],
