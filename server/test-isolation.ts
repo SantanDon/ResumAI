@@ -5,7 +5,7 @@ import path from 'path';
 async function run() {
     console.log('🧪 Testing CVParser in isolation (ts-node)...');
     const parser = new CVParser();
-    const pdfPath = path.join(__dirname, '../templateCV/DS_Santos_CV (1) (2) (4).pdf');
+    const pdfPath = path.join(__dirname, 'test_cv.pdf');
     
     try {
         console.log(`📄 Parsing: ${pdfPath}`);

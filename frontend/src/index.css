@@ -2,72 +2,266 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* ============================================
+   Design System - ResumAI
+   Refined, Sophisticated, Professional Minimalist
+   ============================================ */
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
+@layer base {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    /* Design System - Digital Romanticism from DESIGN.md */
+    --void: #0A0A0F;
+    --abyss: #12121A;
+    --iris: #C71585;
+    --electric: #00E5FF;
+    --plasma: #FF006E;
+    --aurora-teal: #00FFB2;
+    --aurora-violet: #7B2FFF;
+    --aurora-rose: #FF2D7B;
+    --text-primary: #F0F0F5;
+    --text-whisper: rgba(255,255,255,0.4);
+    --glass-border: rgba(255,255,255,0.07);
+    --glass-fill: rgba(255,255,255,0.05);
+
+    /* Typography */
+    --font-hero-famiy: 'Space Grotesk';
+    --font-hero-size: 4.5rem;
+    --font-hero-weight: 700;
+    --font-hero-spacing: -0.02em;
+    --font-hero-lineHeight: 1.1;
+
+    --font-title-famiy: 'Space Grotesk';
+    --font-title-size: 1.25rem;
+    --font-title-weight: 500;
+    --font-title-spacing: 0.3em;
+    --font-title-transform: uppercase;
+
+    --font-body-famiy: 'Inter';
+    --font-body-size: 1rem;
+    --font-body-weight: 400;
+    --font-body-lineHeight: 1.6;
+
+    --font-button-famiy: 'Space Grotesk';
+    --font-button-size: 1.1rem;
+    --font-button-weight: 600;
+    --font-button-spacing: 0.05em;
+
+    /* Spacing */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 32px;
+    --space-xl: 64px;
+    --space-hero: 128px;
+
+    /* Rounded */
+    --rounded-sm: 8px;
+    --rounded-md: 16px;
+    --rounded-lg: 24px;
+    --rounded-full: 9999px;
+
+    /* Font settings */
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    line-height: 1.5;
+    font-weight: 400;
+
+    /* Color scheme */
+    color-scheme: dark;
+    color: rgba(255, 255, 255, 0.9);
+    background-color: #09090b;
+    
+    /* Aurora background variables */
+    --white: #ffffff;
+    --black: #000000;
+    --transparent: transparent;
+    --blue-300: #93c5fd;
+    --blue-400: #60a5fa;
+    --blue-500: #3b82f6;
+    --indigo-500: #6366f1;
+    --violet-200: #ddd6fe;
+
+    /* Font rendering */
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
   }
-  a:hover {
-    color: #747bff;
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
   }
-  button {
-    background-color: #f9f9f9;
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, oklch(0.06 0.018 280), oklch(0.08 0.015 280));
+    background-attachment: fixed;
+  }
+
+  /* Selection styling */
+  ::selection {
+    background-color: rgba(139, 92, 246, 0.3);
+    color: white;
+  }
+
+  /* Focus visible for accessibility */
+  :focus-visible {
+    outline: 2px solid rgba(139, 92, 246, 0.5);
+    outline-offset: 2px;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
   }
 }
+
+@layer components {
+  /* Glass morphism effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-hover:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 50%, #c4b5fd 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-white {
+    background: linear-gradient(135deg, #ffffff 0%, #e4e4e7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glow effects */
+  .glow {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  }
+
+  .glow-hover:hover {
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
+  }
+
+  /* Border gradient */
+  .border-gradient {
+    position: relative;
+    background: linear-gradient(#09090b, #09090b) padding-box,
+                linear-gradient(135deg, rgba(139, 92, 246, 0.5), rgba(139, 92, 246, 0.1)) border-box;
+    border: 1px solid transparent;
+  }
+
+  /* Subtle background patterns */
+  .bg-grid {
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .bg-dots {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Card hover lift effect */
+  .card-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Smooth transitions */
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Text balance for headings */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Lumen-style container wireframe glow */
+  .lumen-container {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 
+      inset 0 0 40px rgba(255, 255, 255, 0.01),
+      0 8px 32px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .lumen-container:hover {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 
+      inset 0 0 60px rgba(139, 92, 246, 0.05),
+      0 12px 40px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(139, 92, 246, 0.1);
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .motion-safe\:animate-none {
+      animation: none !important;
+    }
+    
+    .motion-safe\:transition-none {
+      transition: none !important;
+    }
+  }
+}
+
+/* ============================================
+   Animations
+   ============================================ */
 
 @keyframes aurora {
   from {
@@ -78,8 +272,43 @@ button:focus-visible {
   }
 }
 
-.animate-aurora {
-  animation: aurora 60s linear infinite;
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.5);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 @keyframes border-beam {
@@ -88,16 +317,206 @@ button:focus-visible {
   }
 }
 
-.animate-border-beam {
-  animation: border-beam calc(var(--duration)*1s) infinite linear;
-}
-
-@keyframes shimmer {
-  100% {
-    transform: translateX(100%);
-  }
+.animate-aurora {
+  animation: aurora 60s linear infinite;
 }
 
 .animate-shimmer {
-  animation: shimmer 1.5s infinite;
+  animation: shimmer 2s linear infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+.animate-border-beam {
+  animation: border-beam calc(var(--duration, 4) * 1s) infinite linear;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
+.animate-dash {
+  animation: dash 3s linear infinite;
+}
+
+/* ============================================
+    Typography refinements
+    ============================================ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+p {
+  line-height: 1.6;
+}
+
+/* ============================================
+    Enhanced text contrast for readability
+    Replaces low-contrast gray colors
+    ============================================ */
+
+/* Override grey text with better contrast */
+.text-gray-300 {
+  @apply text-white/85;
+}
+
+.text-gray-400 {
+  @apply text-white/70;
+}
+
+.text-gray-500 {
+  @apply text-white/60;
+}
+
+.text-gray-600 {
+  @apply text-white/70;
+}
+
+/* Placeholder text override */
+::placeholder {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Dialog and helper text */
+.text-gray-300,
+.text-gray-400,
+.text-gray-500 {
+  @apply opacity-100;
+}
+
+/* ============================================
+   Form element resets
+   ============================================ */
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Remove default button styles */
+button:focus {
+  outline: none;
+}
+
+/* Remove autofill background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #18181b inset;
+  -webkit-text-fill-color: white;
+  caret-color: white;
+}
+
+
+/* ============================================
+   Message Formatter Styles
+   ============================================ */
+
+.message-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.message-content h1,
+.message-content h2,
+.message-content h3,
+.message-content h4,
+.message-content h5,
+.message-content h6 {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.message-content .message-h1 {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.message-content .message-h2 {
+  font-size: 1.25rem;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.message-content .message-h3 {
+  font-size: 1.1rem;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.message-content strong {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 1);
+}
+
+.message-content em {
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.message-content .message-list {
+  list-style: none;
+  padding-left: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+.message-content .message-list li {
+  margin: 0.25rem 0;
+  position: relative;
+  padding-left: 0.5rem;
+}
+
+.message-content .message-list li:before {
+  content: "•";
+  position: absolute;
+  left: -1rem;
+  color: rgba(139, 92, 246, 0.8);
+  font-weight: bold;
+}
+
+.message-content p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.message-content br {
+  display: block;
+  content: "";
+  margin: 0.25rem 0;
+}
+
+.prose-invert {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.prose-invert strong {
+  color: rgba(255, 255, 255, 1);
+}
+
+.prose-invert em {
+  color: rgba(255, 255, 255, 0.95);
 }

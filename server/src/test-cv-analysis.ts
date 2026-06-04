@@ -1,4 +1,6 @@
 import { CVAnalyzer } from './swarm/prompts';
+import dotenv from 'dotenv';
+dotenv.config();
 
 async function testCVAnalysis() {
     const analyzer = new CVAnalyzer(5);

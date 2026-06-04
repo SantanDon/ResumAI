@@ -1,210 +1,211 @@
-/**
- * Mass Apply Service
- * Handles batch job applications with tailored CVs
- * Requirements: Mass application feature with CV tailoring
- */
-
 import { db } from '../db';
-import { jobQueueManager } from './jobQueueManager';
-import { tailoredCVGeneratorService } from './tailoredCVGenerator';
-import { SwarmOrchestrator } from '../swarm/orchestrator';
+import { v4 as uuidv4 } from 'uuid';
+import { jobParserService } from './jobParserService';
+import { cvTailorService } from './cvTailorService';
+import { coverLetterGeneratorService } from './coverLetterGeneratorService';
+import { emailService } from './emailService';
+import { humanVerificationDetector, AutomationAssessment } from './humanVerificationDetector';
+import { exportAssetsToDesktop } from './desktopExporter';
 
-const swarm = new SwarmOrchestrator(5);
-
-export interface JobListing {
-    id: string;
-    title: string;
-    company: string;
-    description: string;
-    url?: string;
-    source?: string;
-    addedAt: string;
+interface ApplyJobInput {
+  jobText: string;
+  jobUrl?: string;
+  title?: string;
+  company?: string;
+  recruiterEmail?: string;
 }
 
-export interface ApplicationResult {
-    jobId: string;
-    company: string;
-    title: string;
-    status: 'success' | 'failed' | 'pending';
-    tailoredCvId?: string;
-    matchScore?: number;
-    coverLetter?: string;
-    error?: string;
+interface ApplyResult {
+  jobQueueId: string;
+  status: 'queued' | 'processing' | 'completed' | 'needs_review' | 'error';
+  automationAssessment?: AutomationAssessment;
+  error?: string;
 }
 
-export interface MassApplyResult {
-    totalJobs: number;
-    successful: number;
-    failed: number;
-    applications: ApplicationResult[];
+interface BatchApplyResult {
+  total: number;
+  queued: number;
+  skipped: number;
+  needsReview: number;
+  errors: number;
+  results: ApplyResult[];
 }
 
 class MassApplyService {
-    /**
-     * Add multiple jobs to the application queue
-     */
-    addJobsToQueue(userId: string, jobs: Omit<JobListing, 'id' | 'addedAt'>[]): JobListing[] {
-        const addedJobs: JobListing[] = [];
-        
-        for (const job of jobs) {
-            const queuedJob = jobQueueManager.addJob(userId, {
-                jobTitle: job.title,
-                company: job.company,
-                jobDescription: job.description,
-                jobUrl: job.url
-            });
-            
-            addedJobs.push({
-                id: queuedJob.id,
-                title: job.title,
-                company: job.company,
-                description: job.description,
-                url: job.url,
-                source: job.source,
-                addedAt: queuedJob.createdAt
-            });
+  async addJobToQueue(userId: string, jobInput: ApplyJobInput): Promise<ApplyResult> {
+    try {
+      const assessment = await humanVerificationDetector.assessJobAutomation(jobInput.jobText, jobInput.jobUrl);
+
+      const id = uuidv4();
+      const stmt = db.prepare(`
+        INSERT INTO job_queue (id, user_id, job_description, job_url, company, title, status)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+      `);
+      stmt.run(
+        id, userId, jobInput.jobText.slice(0, 5000),
+        jobInput.jobUrl || null,
+        jobInput.company || null,
+        jobInput.title || null,
+        assessment.recommendedApproach === 'manual' ? 'pending' : 'pending'
+      );
+
+      return {
+        jobQueueId: id,
+        status: assessment.recommendedApproach === 'manual' ? 'needs_review' : 'queued',
+        automationAssessment: assessment,
+      };
+    } catch (err) {
+      return {
+        jobQueueId: '',
+        status: 'error',
+        error: err instanceof Error ? err.message : 'Unknown error',
+      };
+    }
+  }
+
+  async addJobsToQueue(userId: string, jobs: ApplyJobInput[]): Promise<BatchApplyResult> {
+    const results: ApplyResult[] = [];
+    let queued = 0, skipped = 0, needsReview = 0, errors = 0;
+
+    for (const job of jobs) {
+      const result = await this.addJobToQueue(userId, job);
+      results.push(result);
+      switch (result.status) {
+        case 'queued': queued++; break;
+        case 'needs_review': needsReview++; break;
+        case 'error': errors++; break;
+        default: skipped++;
+      }
+    }
+
+    return { total: jobs.length, queued, skipped, needsReview, errors, results };
+  }
+
+  async processSingleApplication(userId: string, queueId: string): Promise<ApplyResult> {
+    try {
+      const queueItem = db.prepare('SELECT * FROM job_queue WHERE id = ? AND user_id = ?').get(queueId, userId) as any;
+      if (!queueItem) return { jobQueueId: queueId, status: 'error', error: 'Queue item not found' };
+
+      db.prepare('UPDATE job_queue SET status = ? WHERE id = ?').run('processing', queueId);
+
+      const assessment = await humanVerificationDetector.assessJobAutomation(queueItem.job_description, queueItem.job_url);
+
+      if (assessment.recommendedApproach === 'manual') {
+        db.prepare('UPDATE job_queue SET status = ?, error_message = ? WHERE id = ?')
+          .run('pending', 'Manual review required - cannot fully automate', queueId);
+        return { jobQueueId: queueId, status: 'needs_review', automationAssessment: assessment };
+      }
+
+      const parsedJob = await jobParserService.saveJobPosting(userId, queueItem.job_description);
+
+      const tailorResult = await cvTailorService.tailorCVForJob(userId, parsedJob);
+
+      const jobPosting = jobParserService.getJobPosting(parsedJob);
+
+      const coverResult = await coverLetterGeneratorService.generateCoverLetter({
+        userId,
+        jobTitle: jobPosting.title,
+        companyName: jobPosting.company,
+        jobDescription: queueItem.job_description,
+      });
+
+      // Save cover letter to database and get the valid ID
+      const savedCoverLetterId = coverLetterGeneratorService.saveCoverLetter(
+        userId,
+        parsedJob,
+        coverResult.coverLetter,
+        'professional',
+        85
+      );
+
+      // Export tailored CV and Cover Letter to desktop folder
+      await exportAssetsToDesktop(
+        jobPosting.company,
+        jobPosting.title,
+        tailorResult.tailoredCV,
+        coverResult.coverLetter
+      );
+
+      const email = jobPosting.recruiterEmail || queueItem.job_description.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/)?.[0];
+
+      if (email) {
+        const cvEntries = db.prepare('SELECT * FROM master_cv WHERE user_id = ? AND section_type = ?').all(userId, 'name') as any[];
+        const candidateName = cvEntries.length > 0 ? cvEntries[0].content : 'Candidate';
+
+        const emailResult = await emailService.sendApplicationEmail(
+          userId, email, candidateName, jobPosting.title,
+          jobPosting.company, coverResult.coverLetter
+        );
+
+        if (emailResult.success) {
+          const applicationId = uuidv4();
+          db.prepare(`
+            INSERT INTO applications (id, user_id, job_posting_id, tailored_cv_id, cover_letter_id, email_sent, recruiter_email, status, sent_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+          `).run(applicationId, userId, parsedJob, tailorResult.tailoredCVId, savedCoverLetterId, 1, email, 'sent', new Date().toISOString());
         }
-        
-        return addedJobs;
+      }
+
+      db.prepare('UPDATE job_queue SET status = ?, processed_at = ? WHERE id = ?')
+        .run('completed', new Date().toISOString(), queueId);
+
+      return { jobQueueId: queueId, status: 'completed', automationAssessment: assessment };
+    } catch (err) {
+      const errorMsg = err instanceof Error ? err.message : 'Unknown error';
+      db.prepare('UPDATE job_queue SET status = ?, error_message = ? WHERE id = ?').run('error', errorMsg, queueId);
+      return { jobQueueId: queueId, status: 'error', error: errorMsg };
+    }
+  }
+
+  async processApplications(userId: string, maxConcurrent: number = 3): Promise<{ processed: number; results: ApplyResult[] }> {
+    const pending = db.prepare(
+      'SELECT * FROM job_queue WHERE user_id = ? AND status = ? ORDER BY created_at ASC LIMIT ?'
+    ).all(userId, 'pending', maxConcurrent) as any[];
+
+    if (pending.length === 0) return { processed: 0, results: [] };
+
+    const results: ApplyResult[] = [];
+    for (const item of pending) {
+      const result = await this.processSingleApplication(userId, item.id);
+      results.push(result);
     }
 
+    return { processed: results.length, results };
+  }
 
-    /**
-     * Process all pending applications and generate tailored CVs
-     */
-    async processApplications(userId: string): Promise<MassApplyResult> {
-        const queueResult = await jobQueueManager.processQueue(userId);
-        
-        const applications: ApplicationResult[] = queueResult.results.map(r => {
-            const job = jobQueueManager.getJob(r.jobId);
-            return {
-                jobId: r.jobId,
-                company: job?.company || 'Unknown',
-                title: job?.jobTitle || 'Unknown',
-                status: r.success ? 'success' : 'failed',
-                tailoredCvId: r.tailoredCvId,
-                matchScore: r.matchScore,
-                error: r.error
-            };
-        });
+  getApplicationStats(userId: string): { total: number; pending: number; processing: number; completed: number; needsReview: number; error: number } {
+    try {
+      const stats = db.prepare(`
+        SELECT status, COUNT(*) as count FROM job_queue WHERE user_id = ? GROUP BY status
+      `).all(userId) as any[];
+      const map: Record<string, number> = { total: 0, pending: 0, processing: 0, completed: 0, needsReview: 0, error: 0 };
+      stats.forEach((s: any) => { map[s.status] = s.count; map.total += s.count; });
+      return map as any;
+    } catch { return { total: 0, pending: 0, processing: 0, completed: 0, needsReview: 0, error: 0 }; }
+  }
 
-        return {
-            totalJobs: queueResult.processed,
-            successful: queueResult.successful,
-            failed: queueResult.failed,
-            applications
-        };
+  parseJobListings(text: string): ApplyJobInput[] {
+    const jobs: ApplyJobInput[] = [];
+    const blocks = text.split(/(?=\n#|\n---|\d+\.\s)/).filter(b => b.trim().length > 50);
+
+    for (const block of blocks) {
+      const titleMatch = block.match(/(?:title|position|role):\s*([^\n]+)/i);
+      const companyMatch = block.match(/(?:company|employer|org):\s*([^\n]+)/i);
+      const emailMatch = block.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/);
+      const urlMatch = block.match(/https?:\/\/[^\s\n]+/);
+
+      jobs.push({
+        jobText: block.trim().slice(0, 5000),
+        title: titleMatch?.[1]?.trim(),
+        company: companyMatch?.[1]?.trim(),
+        recruiterEmail: emailMatch?.[1],
+        jobUrl: urlMatch?.[0],
+      });
     }
 
-    /**
-     * Generate cover letter for a specific job
-     */
-    async generateCoverLetter(userId: string, jobId: string): Promise<string> {
-        const job = jobQueueManager.getJob(jobId);
-        if (!job) throw new Error('Job not found');
-
-        const entries = db.prepare('SELECT * FROM master_cv WHERE user_id = ?').all(userId) as any[];
-        const skills = entries.filter(e => e.section_type?.includes('skill')).map(e => e.content);
-        const experience = entries.filter(e => 
-            e.section_type?.includes('experience') || e.section_type?.includes('work')
-        ).map(e => e.content);
-
-        const prompt = `Write a professional cover letter for the following job application.
-
-Job Title: ${job.jobTitle}
-Company: ${job.company}
-Job Description: ${job.jobDescription.slice(0, 1000)}
-
-Candidate Skills: ${skills.slice(0, 10).join(', ')}
-Candidate Experience: ${experience.slice(0, 3).join('; ')}
-
-Requirements:
-- Professional and concise (3-4 paragraphs)
-- Highlight relevant skills and experience
-- Show enthusiasm for the role
-- Include a strong opening and closing
-- Do not include placeholder text like [Your Name]`;
-
-        const coverLetter = await swarm.runAtomicTask(prompt);
-        return coverLetter;
-    }
-
-    /**
-     * Get application statistics for a user
-     */
-    getApplicationStats(userId: string): {
-        total: number;
-        pending: number;
-        completed: number;
-        avgMatchScore: number;
-        topCompanies: string[];
-    } {
-        const status = jobQueueManager.getQueueStatus(userId);
-        
-        const completedJobs = status.jobs.filter(j => j.status === 'completed');
-        const avgScore = completedJobs.length > 0
-            ? completedJobs.reduce((sum, j) => sum + (j.matchScore || 0), 0) / completedJobs.length
-            : 0;
-
-        const companyCounts: Record<string, number> = {};
-        for (const job of status.jobs) {
-            companyCounts[job.company] = (companyCounts[job.company] || 0) + 1;
-        }
-        const topCompanies = Object.entries(companyCounts)
-            .sort((a, b) => b[1] - a[1])
-            .slice(0, 5)
-            .map(([company]) => company);
-
-        return {
-            total: status.total,
-            pending: status.pending,
-            completed: status.completed,
-            avgMatchScore: Math.round(avgScore),
-            topCompanies
-        };
-    }
-
-    /**
-     * Parse job listings from text (e.g., pasted from job board)
-     */
-    parseJobListings(text: string): Omit<JobListing, 'id' | 'addedAt'>[] {
-        const jobs: Omit<JobListing, 'id' | 'addedAt'>[] = [];
-        
-        // Split by common separators
-        const sections = text.split(/\n{2,}|---+/);
-        
-        for (const section of sections) {
-            if (section.trim().length < 50) continue;
-            
-            const lines = section.trim().split('\n');
-            const title = lines[0]?.trim() || 'Position';
-            const company = this.extractCompanyFromText(section);
-            
-            jobs.push({
-                title,
-                company,
-                description: section.trim(),
-                source: 'manual'
-            });
-        }
-        
-        return jobs;
-    }
-
-    private extractCompanyFromText(text: string): string {
-        const patterns = [
-            /at\s+([A-Z][a-zA-Z\s&]+)/,
-            /company[:\s]+([A-Z][a-zA-Z\s&]+)/i,
-            /([A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+)*)\s+is\s+(?:hiring|looking|seeking)/
-        ];
-        
-        for (const pattern of patterns) {
-            const match = text.match(pattern);
-            if (match) return match[1].trim();
-        }
-        
-        return 'Company';
-    }
+    return jobs;
+  }
 }
 
 export const massApplyService = new MassApplyService();
+export default massApplyService;

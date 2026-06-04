@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import { SwarmOrchestrator } from './swarm/orchestrator';
 
 async function main() {

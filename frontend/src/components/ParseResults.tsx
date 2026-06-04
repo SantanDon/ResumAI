@@ -29,7 +29,7 @@ export const ParseResults: React.FC<ParseResultsProps> = ({ data }) => {
                                 ))}
                             </ul>
                         ) : (
-                            <p className="text-gray-400 italic">No {type}s found.</p>
+                            <p className="text-white/70 italic">No {type}s found.</p>
                         )}
                     </div>
                 ))}

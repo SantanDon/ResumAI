@@ -6,15 +6,17 @@ interface AuroraBackgroundProps {
   children: ReactNode;
   className?: string;
   showRadialGradient?: boolean;
+  colors?: string[];
 }
 
 export const AuroraBackground = ({
   className,
   children,
   showRadialGradient = true,
+  colors: propColors,
   ...props
 }: AuroraBackgroundProps) => {
-  const COLORS = ["#13FFAA", "#1E67C6", "#CE84CF", "#DD335C"];
+  const COLORS = propColors || ["#13FFAA", "#1E67C6", "#CE84CF", "#DD335C"];
   const color = useMotionValue(COLORS[0]);
   const backgroundImage = useMotionTemplate`radial-gradient(125% 125% at 50% 0%, #020617 50%, ${color})`;
   const border = useMotionTemplate`1px solid ${color}`;

@@ -29,7 +29,7 @@ export const WizardStepper: React.FC<WizardStepperProps> = ({ steps, currentStep
                   w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-500
                   ${isActive 
                     ? 'bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-[0_0_15px_rgba(59,130,246,0.5)] scale-110' 
-                    : 'bg-gray-800 text-gray-500 border border-gray-700'}
+                    : 'bg-white/5 text-white/60 border border-white/10'}
                   ${isCurrent ? 'ring-2 ring-blue-400 ring-offset-2 ring-offset-gray-900' : ''}
                 `}
               >
@@ -38,7 +38,7 @@ export const WizardStepper: React.FC<WizardStepperProps> = ({ steps, currentStep
               <span 
                 className={`
                   text-[10px] uppercase tracking-wider font-bold transition-colors duration-300 absolute -bottom-6
-                  ${isActive ? 'text-blue-400' : 'text-gray-600'}
+                  ${isActive ? 'text-blue-400' : 'text-white/60'}
                 `}
                 style={{ 
                     transform: 'translateX(-50%)', 

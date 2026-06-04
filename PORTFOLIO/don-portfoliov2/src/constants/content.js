@@ -10,11 +10,12 @@ export const ABOUT_CONTENT = {
   skills: [
     { category: 'AI & Systems Design', items: [{name: 'Swarm Intelligence'}, {name: 'Ensemble Voting'}, {name: 'Maximal Decomposition'}, {name: 'RAG Architectures'}, {name: 'Vector Databases'}, {name: 'LangChain'}, {name: 'Ollama / Groq'}] },
     { category: 'Frontend Engineering', items: [{name: 'React'}, {name: 'Next.js 14'}, {name: 'TypeScript'}, {name: 'Tailwind CSS'}, {name: 'Framer Motion'}, {name: 'WebGL Shaders'}] },
-    { category: 'Backend & Tooling', items: [{name: 'Node.js / Express'}, {name: 'REST & WebSockets'}, {name: 'SQLite / Postgres'}, {name: 'Puppeteer Rendering'}, {name: 'Docker'}, {name: 'Git / CI-CD'}] }
+    { category: 'Backend & Tooling', items: [{name: 'Node.js / Express'}, {name: 'REST & WebSockets'}, {name: 'SQLite / Postgres'}, {name: 'Puppeteer Rendering'}, {name: 'Docker'}, {name: 'Git / CI-CD'}] },
+    { category: 'Soft Skills', items: [{name: 'Written & Verbal Communication'}, {name: 'Presentation'}, {name: 'Team Collaboration'}, {name: 'Work Under Pressure'}, {name: 'Adaptability & Systems Learning'}] }
   ],
   education: [
     {
-      degree: 'Diploma in Paralegal Studies',
+      degree: 'Paralegal Studies',
       institution: 'University of Johannesburg (UJ)',
       description: 'Rigorous legal studies specializing in statutory interpretation, legal research, and legal drafting.',
       modules: ['Contract Law', 'Legal Drafting', 'Litigation & Procedures', 'Labour Law', 'Criminal Law', 'Business Law', 'Law of Succession']
@@ -44,6 +45,14 @@ export const PROJECTS = [
     tech: ['Next.js 14', 'TypeScript', 'LangChain', 'Vector DB', 'Ollama', 'Semantic Search'],
     liveLink: 'https://docketdive.vercel.app/',
     sourceLink: '#'
+  },
+  {
+    id: 'resumai',
+    title: 'ResumAI',
+    description: 'An industrial-grade, swarm-powered CV builder and outreach engine. Designed a consensus-based ensemble voting protocol using 5-worker Ollama nodes to process, optimize, and parse resumes with zero-error validation.',
+    tech: ['React', 'TypeScript', 'Node.js', 'Express', 'SQLite', 'Ollama Swarm', 'Puppeteer', 'Tailwind CSS'],
+    liveLink: 'https://resumai-platform.vercel.app/',
+    sourceLink: 'https://github.com/SantanDon/ResumAI'
   },
   {
     id: 'studypodlm',

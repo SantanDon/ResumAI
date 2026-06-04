@@ -9,6 +9,7 @@ export class CVParser {
     constructor() {
         this.swarm = new SwarmOrchestrator(5);
     }
+    
     /** Extract raw text from a PDF file */
     async extractTextFromPDF(pdfPath: string): Promise<string> {
         const dataBuffer = fs.readFileSync(pdfPath);
@@ -32,108 +33,149 @@ export class CVParser {
             .filter((line) => line.length > 0);
     }
 
-    /** Classify a line using Swarm */
-    async classifyLine(line: string): Promise<'email' | 'phone' | 'date' | 'skill' | 'unknown'> {
-        // Email detection
-        if (/@/.test(line)) {
-            try {
-                const prompt = `Is this text an email address? Answer only "yes" or "no".\n\nText: "${line}"`;
-                const result = await this.swarm.runAtomicTask(prompt);
-                if (result.toLowerCase().includes('yes')) return 'email';
-            } catch (e) {
-                console.warn('⚠️ Swarm unavailable, using regex fallback for email');
-                // Strict regex fallback
-                if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(line)) return 'email';
-            }
+    /** OPTIMIZED: Fast regex-based classification (no LLM calls) */
+    classifyLineFast(line: string): 'email' | 'phone' | 'date' | 'skill' | 'experience' | 'education' | 'name' | 'summary' | 'unknown' {
+        const lowerLine = line.toLowerCase();
+        
+        // Email detection (strict regex)
+        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(line) || /[\w\.-]+@[\w\.-]+\.\w+/.test(line)) {
+            return 'email';
         }
+        
         // Phone detection
-        if (/\+?\d{1,4}[\s-]?\(?\d{1,4}\)?[\s-]?\d{1,4}[\s-]?\d{1,9}/.test(line)) return 'phone';
-        // Date detection
-        if (/\d{4}/.test(line) && line.length < 30) {
-            try {
-                const prompt = `Is this text a date or date range (e.g., "2020-2023", "Jan 2020")? Answer only "yes" or "no".\n\nText: "${line}"`;
-                const result = await this.swarm.runAtomicTask(prompt);
-                if (result.toLowerCase().includes('yes')) return 'date';
-            } catch (e) {
-                console.warn('⚠️ Swarm unavailable, using regex fallback for date');
-                // Basic date fallback
-                if (/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec|20\d\d|19\d\d)/i.test(line)) return 'date';
-            }
+        if (/\+?\d{1,4}[\s-]?\(?\d{1,4}\)?[\s-]?\d{1,4}[\s-]?\d{1,9}/.test(line) && line.length < 25) {
+            return 'phone';
         }
-        // Skill detection (simple keyword list)
-        const skillKeywords = ['JavaScript', 'TypeScript', 'Node', 'React', 'Python', 'SQL', 'AWS', 'Docker'];
-        if (skillKeywords.some((kw) => line.toLowerCase().includes(kw.toLowerCase()))) return 'skill';
+        
+        // Date/date range detection (for experience/education entries)
+        if (/\d{4}\s*[-–]\s*(present|\d{4}|current)/i.test(line) || 
+            /(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\s+\d{4}/i.test(line)) {
+            return 'date';
+        }
+        
+        // Experience keywords (job titles, companies, and structured labels)
+        if (lowerLine.startsWith('company :') || lowerLine.startsWith('company:') ||
+            lowerLine.startsWith('designation :') || lowerLine.startsWith('designation:') ||
+            lowerLine.startsWith('duration :') || lowerLine.startsWith('duration:') ||
+            /(developer|engineer|manager|analyst|designer|consultant|specialist|lead|senior|junior|intern|director|ceo|cto|vp)/i.test(lowerLine)) {
+            return 'experience';
+        }
+        
+        // Education keywords
+        if (/(university|college|bachelor|master|degree|diploma|phd|bsc|msc|mba|school|institute)/i.test(lowerLine)) {
+            return 'education';
+        }
+        
+        // Skill detection (expanded keyword list)
+        const skillKeywords = [
+            'javascript', 'typescript', 'node', 'react', 'python', 'sql', 'aws', 'docker',
+            'kubernetes', 'java', 'c++', 'c#', 'go', 'rust', 'ruby', 'php', 'swift', 'kotlin',
+            'html', 'css', 'sass', 'tailwind', 'bootstrap', 'vue', 'angular', 'svelte',
+            'mongodb', 'postgresql', 'mysql', 'redis', 'elasticsearch', 'graphql', 'rest',
+            'git', 'github', 'gitlab', 'jenkins', 'ci/cd', 'terraform', 'ansible',
+            'azure', 'gcp', 'firebase', 'heroku', 'vercel', 'netlify',
+            'agile', 'scrum', 'jira', 'confluence', 'figma', 'sketch',
+            'machine learning', 'ai', 'deep learning', 'tensorflow', 'pytorch',
+            'data analysis', 'excel', 'powerbi', 'tableau', 'pandas', 'numpy'
+        ];
+        if (skillKeywords.some(kw => lowerLine.includes(kw))) {
+            return 'skill';
+        }
+        
+        // Summary/objective detection
+        if (/(summary|objective|profile|about me|professional summary)/i.test(lowerLine) && line.length < 50) {
+            return 'summary';
+        }
+        
+        // Name detection (first line, capitalized, short)
+        if (line.length < 40 && /^[A-Z][a-z]+(\s+[A-Z][a-z]+)+$/.test(line)) {
+            return 'name';
+        }
+        
         return 'unknown';
     }
 
-    /** Extract email using swarm verification */
-    private async extractEmail(text: string): Promise<string | null> {
+    /** Classify a line using Swarm (legacy, slower) */
+    async classifyLine(line: string): Promise<'email' | 'phone' | 'date' | 'skill' | 'unknown'> {
+        // Use fast classification first
+        const fastResult = this.classifyLineFast(line);
+        if (fastResult !== 'unknown') {
+            return fastResult as 'email' | 'phone' | 'date' | 'skill' | 'unknown';
+        }
+        
+        // Only use swarm for truly ambiguous cases
+        return 'unknown';
+    }
+
+    /** Extract email using regex (fast, no LLM) */
+    private extractEmailFast(text: string): string | null {
         const emailRegex = /[\w\.-]+@[\w\.-]+\.\w+/g;
         const candidates = text.match(emailRegex) || [];
-        for (const candidate of candidates) {
-            try {
-                const prompt = `Is "${candidate}" a valid email address? Answer only "yes" or "no".`;
-                const result = await this.swarm.runAtomicTask(prompt);
-                if (result.toLowerCase().trim() === 'yes') {
-                    return candidate;
-                }
-            } catch (e) {
-                console.warn('⚠️ Swarm unavailable, accepting email candidate via regex');
-                return candidate; // Fallback: accept the first regex match
-            }
-        }
-        return null;
+        return candidates[0] || null;
     }
 
-    /** Save parsed data to MasterCV DB */
-    private saveToMasterCV(userId: string, classifications: Record<string, string[]>) {
-        for (const [sectionType, items] of Object.entries(classifications)) {
-            for (const content of items) {
-                db.prepare(`
-                    INSERT OR IGNORE INTO master_cv (user_id, section_type, content)
-                    VALUES (?, ?, ?)
-                `).run(userId, sectionType, content);
-            }
+    /** Save parsed data to MasterCV DB in chronological order */
+    private saveToMasterCV(userId: string, orderedEntries: Array<{ sectionType: string; content: string }>) {
+        console.log(`DEBUG: saveToMasterCV called with ${orderedEntries.length} entries.`);
+        orderedEntries.slice(0, 5).forEach((e, i) => console.log(`  DEBUG: Entry ${i} -> [${e.sectionType}] "${e.content}"`));
+
+        // Delete existing entries for this user to avoid accumulation/duplication
+        db.prepare('DELETE FROM master_cv WHERE user_id = ?').run(userId);
+
+        for (const entry of orderedEntries) {
+            db.prepare(`
+                INSERT OR IGNORE INTO master_cv (user_id, section_type, content)
+                VALUES (?, ?, ?)
+            `).run(userId, entry.sectionType, entry.content);
         }
     }
 
-    /** Main parsing workflow - UPDATED */
+    /** OPTIMIZED: Main parsing workflow - Fast mode (no LLM calls) */
     async parseCV(pdfPath: string) {
-        console.log('🔍 Starting CV Parsing with Swarm...');
+        const startTime = Date.now();
+        console.log('🔍 Starting OPTIMIZED CV Parsing...');
+        
         console.log('Step 1: Extracting text from PDF...');
         const rawText = await this.extractTextFromPDF(pdfPath);
-        console.log(`✅ Extracted ${rawText.length} characters`);
+        console.log(`✅ Extracted ${rawText.length} characters (${Date.now() - startTime}ms)`);
+        
         console.log('Step 2: Decomposing into atomic lines...');
         const lines = this.decomposeIntoLines(rawText);
-        console.log(`✅ Found ${lines.length} non‑empty lines`);
-        console.log('Step 3: Classifying lines...');
+        console.log(`✅ Found ${lines.length} non‑empty lines (${Date.now() - startTime}ms)`);
+        
+        console.log('Step 3: Fast classification (no LLM)...');
         const classifications: Record<string, string[]> = {
             email: [],
             phone: [],
             date: [],
             skill: [],
+            experience: [],
+            education: [],
+            name: [],
+            summary: [],
             unknown: [],
         };
         
-        // Process all lines (with a safety cap of 200 to prevent timeouts during demo)
-        const maxLines = 200; 
-        for (let i = 0; i < Math.min(maxLines, lines.length); i++) {
-            const line = lines[i];
-            // Skip very short lines
+        const orderedEntries: Array<{ sectionType: string; content: string }> = [];
+        
+        // FAST: Process all lines with regex-based classification
+        for (const line of lines) {
             if (line.length < 3) continue;
-            
-            const type = await this.classifyLine(line);
+            const type = this.classifyLineFast(line);
             classifications[type].push(line);
-            
-            // Log progress every 10 lines
-            if (i % 10 === 0) console.log(`   Processed ${i}/${lines.length} lines...`);
+            orderedEntries.push({ sectionType: type, content: line });
         }
+        
+        console.log(`✅ Classified ${lines.length} lines (${Date.now() - startTime}ms)`);
 
-        // NEW: Extract user_id and save to DB
-        const email = await this.extractEmail(rawText);
-        const userId = email || 'anonymous_' + Date.now();
-        this.saveToMasterCV(userId, classifications);
+        // Extract user_id and save to DB
+        const email = this.extractEmailFast(rawText);
+        const userId = email || `anonymous_${Date.now()}`;
+        this.saveToMasterCV(userId, orderedEntries);
+        
+        const totalTime = Date.now() - startTime;
         console.log(`💾 Saved to MasterCV for user: ${userId}`);
+        console.log(`⚡ Total parsing time: ${totalTime}ms`);
 
         return { rawText, lines, classifications, userId };
     }

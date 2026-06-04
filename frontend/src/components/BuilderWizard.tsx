@@ -19,7 +19,7 @@ export const BuilderWizard: React.FC<{ userId: string; onComplete: () => void }>
   const steps = ['Personal Info', 'Work Experience', 'Education', 'Skills'];
 
   const saveSection = async (sectionType: string, content: string) => {
-    await fetch('http://localhost:3001/api/cv/master', {
+    await fetch('/api/cv/master', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ user_id: userId, section_type: sectionType, content }),

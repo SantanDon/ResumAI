@@ -8,12 +8,12 @@ interface GradientInputProps extends React.InputHTMLAttributes<HTMLInputElement>
 export const GradientInput: React.FC<GradientInputProps> = ({ label, icon, className = "", ...props }) => {
   return (
     <div className="group relative">
-      <label className="block text-xs font-medium text-gray-400 mb-1 ml-1 group-focus-within:text-blue-400 transition-colors">
+      <label className="block text-xs font-medium text-white/70 mb-1 ml-1 group-focus-within:text-blue-400 transition-colors">
         {label}
       </label>
       <div className="relative flex items-center">
         {icon && (
-          <div className="absolute left-3 text-gray-500 group-focus-within:text-blue-400 transition-colors z-10">
+          <div className="absolute left-3 text-white/60 group-focus-within:text-blue-400 transition-colors z-10">
             {icon}
           </div>
         )}

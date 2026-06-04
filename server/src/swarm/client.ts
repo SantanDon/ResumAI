@@ -1,31 +1,49 @@
-import ollama from 'ollama';
+/**
+ * Swarm Client - LLM Abstraction
+ * Uses LLMFactory to automatically select best available backend
+ * Supports: HuggingFace Inference, Ollama (local), or Fallback
+ */
+
+import { LLMFactory } from '../llm/LLMFactory';
+import { LLMBackend } from '../llm/LLMBackend';
 
 export class SwarmClient {
-    private model: string;
+    private backend: LLMBackend | null = null;
 
-    constructor(model: string = 'llama3.2:1b') {
-        this.model = model;
+    async initialize(): Promise<void> {
+        this.backend = await LLMFactory.getInstance();
+        console.log(`[SwarmClient] Initialized with ${this.backend.getName()}`);
     }
 
     async generate(prompt: string): Promise<string> {
+        // Lazy initialization
+        if (!this.backend) {
+            await this.initialize();
+        }
+
         try {
-            const response = await ollama.generate({
-                model: this.model,
-                prompt: prompt,
-                stream: false,
-                options: {
-                    temperature: 0.7, // Slightly creative but stable
-                }
-            });
-            return response.response.trim();
+            const response = await this.backend!.generate(prompt);
+            return response.trim();
         } catch (error: any) {
-            if (error.cause && error.cause.code === 'ECONNREFUSED') {
-                console.error("❌ CRITICAL: Could not connect to Ollama!");
-                console.error("   Please ensure Ollama is running: 'ollama serve'");
-                throw new Error("Ollama connection failed. Is 'ollama serve' running?");
+            console.error("[SwarmClient] Generation error:", error.message);
+            
+            // Try fallback if it's a backend source error
+            if (this.backend) {
+                // Fallback logic disabled for now
+                console.warn("[SwarmClient] Backend error, skipping fallback");
             }
-            console.error("Swarm Worker Error:", error);
+            
             throw error;
         }
+    }
+
+    /**
+     * Get current backend info (for debugging)
+     */
+    async getBackendInfo(): Promise<string> {
+        if (!this.backend) {
+            await this.initialize();
+        }
+        return this.backend!.getName();
     }
 }

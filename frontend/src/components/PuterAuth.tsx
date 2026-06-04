@@ -69,7 +69,7 @@ export const PuterAuth: React.FC<PuterAuthProps> = ({ onAuthenticated }) => {
         <div className="glass-dark rounded-xl p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
                 <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-                <span className="text-gray-400">Puter AI: Not connected</span>
+                <span className="text-white/70">Puter AI: Not connected</span>
             </div>
             <button
                 onClick={handleSignIn}

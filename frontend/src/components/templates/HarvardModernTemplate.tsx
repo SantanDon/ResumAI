@@ -88,7 +88,7 @@ export const HarvardModernTemplate: React.FC<Props> = ({ data }) => {
                             <div className="italic text-sm mb-1">{exp.role}</div>
                             <ul className="list-disc ml-5 text-sm space-y-1">
                                 {exp.description.filter(Boolean).map((bullet, i) => (
-                                    <li key={i}>{bullet}</li>
+                                    <li key={i} dangerouslySetInnerHTML={{ __html: bullet }} />
                                 ))}
                             </ul>
                         </div>

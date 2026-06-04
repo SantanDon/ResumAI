@@ -46,7 +46,7 @@ export const AnalyticsTemplate: React.FC<TemplateProps> = ({ data }) => {
                                 {exp.description.map((bullet, idx) => (
                                     <li key={idx} className="text-sm text-slate-600 flex items-start gap-2">
                                         <span className="mt-1.5 w-1 h-1 bg-slate-400 rounded-full flex-shrink-0"></span>
-                                        <span>{bullet}</span>
+                                        <span dangerouslySetInnerHTML={{ __html: bullet }} />
                                     </li>
                                 ))}
                             </ul>

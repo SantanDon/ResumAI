@@ -6,7 +6,7 @@ import path from 'path';
 
 async function testUpload() {
     try {
-        const pdfPath = path.join(__dirname, '../templateCV/DS_Santos_CV (1) (2) (4).pdf');
+        const pdfPath = path.join(__dirname, 'test_cv.pdf');
         
         if (!fs.existsSync(pdfPath)) {
             console.error('❌ Test PDF not found at:', pdfPath);

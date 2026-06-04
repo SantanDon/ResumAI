@@ -4,7 +4,7 @@ import path from 'path';
 async function main() {
     const parser = new CVParser();
 
-    const cvPath = path.join(__dirname, '../../templateCV/DS_Santos_CV (1) (2) (4).pdf');
+    const cvPath = path.join(__dirname, '../test_cv.pdf');
 
     const result = await parser.parseCV(cvPath);
 

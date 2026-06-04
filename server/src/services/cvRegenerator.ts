@@ -10,6 +10,126 @@ import { powerWordsService } from './powerWords';
 import { industryProfileService } from './industryProfiles';
 import { cvIntelligenceService } from './cvIntelligence';
 
+// Common spelling mistakes dictionary for CV-related terms
+const SPELLING_CORRECTIONS: Record<string, string> = {
+    // Common typos
+    'dveloper': 'Developer',
+    'developr': 'Developer',
+    'devloper': 'Developer',
+    'develper': 'Developer',
+    'enginer': 'Engineer',
+    'enginere': 'Engineer',
+    'engeneer': 'Engineer',
+    'managment': 'Management',
+    'managemnt': 'Management',
+    'maneger': 'Manager',
+    'manger': 'Manager',
+    'experiance': 'Experience',
+    'expereince': 'Experience',
+    'experince': 'Experience',
+    'responsable': 'Responsible',
+    'responsibile': 'Responsible',
+    'acheivement': 'Achievement',
+    'acheivment': 'Achievement',
+    'achievment': 'Achievement',
+    'recieved': 'Received',
+    'recived': 'Received',
+    'sucessful': 'Successful',
+    'succesful': 'Successful',
+    'successfull': 'Successful',
+    'proffesional': 'Professional',
+    'profesional': 'Professional',
+    'professionel': 'Professional',
+    'comunication': 'Communication',
+    'communcation': 'Communication',
+    'communicaton': 'Communication',
+    'colaboration': 'Collaboration',
+    'colloboration': 'Collaboration',
+    'colaborate': 'Collaborate',
+    'anaylsis': 'Analysis',
+    'analisis': 'Analysis',
+    'analysys': 'Analysis',
+    'implmentation': 'Implementation',
+    'implementaion': 'Implementation',
+    'implimentation': 'Implementation',
+    'maintainance': 'Maintenance',
+    'maintenace': 'Maintenance',
+    'maintanence': 'Maintenance',
+    'enviroment': 'Environment',
+    'enviornment': 'Environment',
+    'environemnt': 'Environment',
+    'knowlege': 'Knowledge',
+    'knowlede': 'Knowledge',
+    'knowlegde': 'Knowledge',
+    'tecnology': 'Technology',
+    'techonology': 'Technology',
+    'technolgy': 'Technology',
+    'sofware': 'Software',
+    'softwre': 'Software',
+    'softare': 'Software',
+    'databse': 'Database',
+    'datbase': 'Database',
+    'datebase': 'Database',
+    'langauge': 'Language',
+    'languege': 'Language',
+    'languge': 'Language',
+    'programing': 'Programming',
+    'programmin': 'Programming',
+    'progamming': 'Programming',
+    'efficent': 'Efficient',
+    'efficiant': 'Efficient',
+    'eficient': 'Efficient',
+    'excellant': 'Excellent',
+    'excelent': 'Excellent',
+    'excelllent': 'Excellent',
+    'bussiness': 'Business',
+    'busines': 'Business',
+    'buisness': 'Business',
+    'stratagic': 'Strategic',
+    'strategc': 'Strategic',
+    'stratgic': 'Strategic',
+    'liason': 'Liaison',
+    'liasion': 'Liaison',
+    'liaision': 'Liaison',
+    'occured': 'Occurred',
+    'occurrd': 'Occurred',
+    'occassion': 'Occasion',
+    'ocasion': 'Occasion',
+    'seperate': 'Separate',
+    'seprate': 'Separate',
+    'definately': 'Definitely',
+    'definatly': 'Definitely',
+    'defintely': 'Definitely',
+    'accomodate': 'Accommodate',
+    'acommodate': 'Accommodate',
+    'calender': 'Calendar',
+    'calander': 'Calendar',
+    'comittee': 'Committee',
+    'commitee': 'Committee',
+    'committe': 'Committee',
+    'gaurantee': 'Guarantee',
+    'garantee': 'Guarantee',
+    'garauntee': 'Guarantee',
+    'independant': 'Independent',
+    'independet': 'Independent',
+    'neccessary': 'Necessary',
+    'necesary': 'Necessary',
+    'neccesary': 'Necessary',
+    'priviledge': 'Privilege',
+    'privelege': 'Privilege',
+    'privilige': 'Privilege',
+    'recomend': 'Recommend',
+    'reccommend': 'Recommend',
+    'recommed': 'Recommend',
+    'refered': 'Referred',
+    'refferral': 'Referral',
+    'referel': 'Referral',
+    'untill': 'Until',
+    'withold': 'Withhold',
+    'writting': 'Writing',
+    'writng': 'Writing',
+};
+
 const swarm = new SwarmOrchestrator(5);
 
 // Research-backed CV best practices (2024-2025)
@@ -88,10 +208,35 @@ export interface RegeneratedCV {
 
 class CVRegeneratorService {
     /**
+     * Spell-check and correct common CV-related typos
+     */
+    private spellCheck(text: string): { corrected: string; corrections: string[] } {
+        let corrected = text;
+        const corrections: string[] = [];
+        
+        // Check each word against our dictionary
+        const words = text.split(/\b/);
+        for (const word of words) {
+            const lowerWord = word.toLowerCase();
+            if (SPELLING_CORRECTIONS[lowerWord]) {
+                const replacement = SPELLING_CORRECTIONS[lowerWord];
+                // Preserve original case pattern
+                const finalReplacement = word[0] === word[0].toUpperCase() 
+                    ? replacement 
+                    : replacement.toLowerCase();
+                corrected = corrected.replace(new RegExp(`\\b${word}\\b`, 'gi'), finalReplacement);
+                corrections.push(`"${word}" → "${finalReplacement}"`);
+            }
+        }
+        
+        return { corrected, corrections: [...new Set(corrections)] };
+    }
+
+    /**
      * Regenerate CV from master CV data with Harvard style and research-backed enhancements
      */
     async regenerate(userId: string, targetIndustry?: string): Promise<RegeneratedCV> {
-        const entries = db.prepare('SELECT * FROM master_cv WHERE user_id = ?').all(userId) as any[];
+        const entries = db.prepare('SELECT * FROM master_cv WHERE user_id = ? ORDER BY id').all(userId) as any[];
         
         if (entries.length === 0) {
             throw new Error('No CV data found for user');
@@ -126,6 +271,7 @@ class CVRegeneratorService {
     private extractRawData(entries: any[]): any {
         const data: any = {
             personalInfo: { fullName: '', email: '', phone: '' },
+            summary: '',
             education: [],
             experience: [],
             skills: [],
@@ -137,7 +283,9 @@ class CVRegeneratorService {
             const content = entry.content?.trim() || '';
             const type = entry.section_type?.toLowerCase() || '';
 
-            if (type.includes('name') || type.includes('personal')) {
+            if (type.includes('summary') || type.includes('objective') || type.includes('profile')) {
+                data.summary = content;
+            } else if (type.includes('name') || type.includes('personal')) {
                 if (content.includes('@')) {
                     data.personalInfo.email = content;
                 } else if (/\d{3}/.test(content)) {
@@ -169,15 +317,23 @@ class CVRegeneratorService {
     private async enhanceAllSections(rawData: any, industry?: string): Promise<any> {
         const profile = industry ? industryProfileService.getProfile(industry) : null;
         
-        // Enhance personal info
+        // Enhance personal info (spell-check fullName)
+        const { corrected: correctedName } = this.spellCheck(rawData.personalInfo.fullName || 'Your Name');
         const personalInfo = {
-            fullName: rawData.personalInfo.fullName || 'Your Name',
+            fullName: correctedName,
             email: rawData.personalInfo.email || 'email@example.com',
             phone: rawData.personalInfo.phone || '(555) 123-4567',
             location: rawData.personalInfo.location,
             linkedin: rawData.personalInfo.linkedin,
             website: rawData.personalInfo.website
         };
+
+        // Spell-check and enhance summary if present
+        let summary: string | undefined;
+        if (rawData.summary) {
+            const { corrected: correctedSummary } = this.spellCheck(rawData.summary);
+            summary = correctedSummary;
+        }
 
         // Enhance experience bullets
         const experience = await this.enhanceExperience(rawData.experience, rawData.raw, industry);
@@ -191,7 +347,7 @@ class CVRegeneratorService {
         // Format projects
         const projects = this.formatProjects(rawData.projects, rawData.raw);
 
-        return { personalInfo, experience, skills, education, projects };
+        return { personalInfo, summary, experience, skills, education, projects };
     }
 
 
@@ -209,15 +365,27 @@ class CVRegeneratorService {
             e.section_type?.toLowerCase().includes('date')
         );
 
+        // Blacklisted headers to skip
+        const isHeader = (text: string) => {
+            const lower = text.toLowerCase().trim();
+            return lower === 'professional experience' || 
+                   lower === 'work experience' || 
+                   lower === 'experience' || 
+                   lower === 'key duties';
+        };
+
         // Create experience entries from raw data
         let currentExp: any = null;
         
         for (const entry of expEntries) {
             const content = entry.content?.trim() || '';
+            const lower = content.toLowerCase();
             
+            if (isHeader(content)) continue;
+
             // Check if this looks like a company/role header
             if (this.looksLikeJobHeader(content)) {
-                if (currentExp) {
+                if (currentExp && (currentExp.company !== 'Company' || currentExp.role !== 'Position')) {
                     experiences.push(currentExp);
                 }
                 currentExp = {
@@ -229,19 +397,47 @@ class CVRegeneratorService {
                     description: []
                 };
             } else if (currentExp && content.length > 10) {
+                // Skip if it looks like work metadata that got misclassified as highlight
+                if (lower.startsWith('company :') || lower.startsWith('company:') || 
+                    lower.startsWith('designation :') || lower.startsWith('designation:') ||
+                    lower.startsWith('duration :') || lower.startsWith('duration:')) {
+                    continue;
+                }
                 // This is likely a bullet point
                 const enhanced = await this.enhanceBullet(content, industry);
-                currentExp.description.push(enhanced);
+                if (enhanced.length > 10) {
+                    currentExp.description.push(enhanced);
+                }
             }
         }
         
-        if (currentExp) {
+        if (currentExp && (currentExp.company !== 'Company' || currentExp.role !== 'Position')) {
             experiences.push(currentExp);
         }
 
+        // Deduplicate experiences by company and role
+        const uniqueExperiences: any[] = [];
+        for (const exp of experiences) {
+            const companyClean = exp.company.toLowerCase().trim();
+            const roleClean = exp.role.toLowerCase().trim();
+
+            const existing = uniqueExperiences.find(e => 
+                e.company.toLowerCase().trim() === companyClean &&
+                e.role.toLowerCase().trim() === roleClean
+            );
+
+            if (existing) {
+                if (exp.description && exp.description.length > 0) {
+                    existing.description = Array.from(new Set([...(existing.description || []), ...exp.description]));
+                }
+            } else {
+                uniqueExperiences.push(exp);
+            }
+        }
+
         // If no structured experience found, create from raw text
-        if (experiences.length === 0 && experienceData.length > 0) {
-            experiences.push({
+        if (uniqueExperiences.length === 0 && experienceData.length > 0) {
+            uniqueExperiences.push({
                 id: `exp_${Date.now()}`,
                 company: 'Company Name',
                 role: 'Position Title',
@@ -253,7 +449,7 @@ class CVRegeneratorService {
             });
         }
 
-        return experiences;
+        return uniqueExperiences;
     }
 
     /**
@@ -262,6 +458,10 @@ class CVRegeneratorService {
     private async enhanceBullet(bullet: string, industry?: string): Promise<string> {
         // Quick enhancement without AI for speed
         let enhanced = bullet.trim();
+        
+        // Step 1: Spell check first
+        const { corrected } = this.spellCheck(enhanced);
+        enhanced = corrected;
         
         // Ensure starts with action verb
         const firstWord = enhanced.split(' ')[0].toLowerCase();
@@ -343,13 +543,44 @@ class CVRegeneratorService {
             e.section_type?.toLowerCase().includes('school')
         );
 
+        // Helper to check for layout headers
+        const isHeader = (text: string) => {
+            const lower = text.toLowerCase().trim();
+            return lower === 'education' || 
+                   lower === 'academic background' || 
+                   lower === 'professional experience' || 
+                   lower === 'work experience' || 
+                   lower === 'skills' ||
+                   lower === 'key duties';
+        };
+
         for (const entry of eduEntries) {
             const content = entry.content?.trim() || '';
+            const lower = content.toLowerCase();
+
+            if (isHeader(content)) continue;
+
+            // Skip work metadata
+            if (lower.startsWith('company :') || lower.startsWith('company:') || 
+                lower.startsWith('designation :') || lower.startsWith('designation:') ||
+                lower.startsWith('duration :') || lower.startsWith('duration:')) {
+                continue;
+            }
+
             if (content.length > 5) {
+                const school = this.extractSchool(content);
+                const degree = this.extractDegree(content);
+                
+                // Skip if school parsed matches layout headers or is invalid
+                const schoolClean = school.toLowerCase().trim();
+                if (isHeader(schoolClean) || schoolClean === 'skills' || schoolClean === 'professional experience' || schoolClean.length <= 3) {
+                    continue;
+                }
+
                 education.push({
                     id: `edu_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
-                    school: this.extractSchool(content),
-                    degree: this.extractDegree(content),
+                    school,
+                    degree,
                     startDate: this.extractDate(content, 'start'),
                     endDate: this.extractDate(content, 'end'),
                     gpa: this.extractGPA(content)
@@ -357,17 +588,36 @@ class CVRegeneratorService {
             }
         }
 
-        if (education.length === 0 && eduData.length > 0) {
-            education.push({
-                id: `edu_${Date.now()}`,
-                school: eduData[0] || 'University Name',
-                degree: 'Degree',
-                startDate: 'Start',
-                endDate: 'End'
-            });
+        // Deduplicate education by school name and degree
+        const uniqueEducation: any[] = [];
+        for (const edu of education) {
+            const schoolClean = edu.school.toLowerCase().trim();
+            const degreeClean = edu.degree.toLowerCase().trim();
+
+            const existing = uniqueEducation.find(e => 
+                e.school.toLowerCase().trim() === schoolClean && 
+                e.degree.toLowerCase().trim() === degreeClean
+            );
+            if (!existing) {
+                uniqueEducation.push(edu);
+            }
         }
 
-        return education;
+        if (uniqueEducation.length === 0 && eduData.length > 0) {
+            // Deduplicate incoming raw eduData list as well
+            const firstEdu = eduData[0]?.trim() || '';
+            if (firstEdu && !isHeader(firstEdu)) {
+                uniqueEducation.push({
+                    id: `edu_${Date.now()}`,
+                    school: firstEdu,
+                    degree: 'Degree',
+                    startDate: 'Start',
+                    endDate: 'End'
+                });
+            }
+        }
+
+        return uniqueEducation;
     }
 
     /**

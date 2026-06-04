@@ -45,7 +45,7 @@ ollama serve
 
 ### Test 2: CV Chat
 1. Click **"Launch CV Chat"**
-2. Upload a CV PDF (use `templateCV/DS_Santos_CV (1) (2) (4).pdf`)
+2. Upload a CV PDF (use any sample CV PDF)
 3. Wait for parsing (~30 seconds)
 4. You should see:
    - AI-generated summary card

@@ -52,7 +52,7 @@ export const GooeyNav: React.FC<GooeyNavProps> = ({
             key={item.id}
             onClick={item.onClick}
             className={`relative z-10 flex flex-col items-center justify-center w-16 h-16 transition-all duration-300 ${
-              activeIndex === index ? 'text-white' : 'text-gray-400'
+              activeIndex === index ? 'text-white' : 'text-white/70'
             }`}
           >
             <svg

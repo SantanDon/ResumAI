@@ -114,9 +114,6 @@ npm run test
 
 # Run the strict CV parsing audit
 npx ts-node src/test-cv-analysis.ts
-
-# Generate Don Santos's custom PDF CV via Puppeteer
-npx ts-node src/test-don-santos-cv.ts
 ```
 
 ---

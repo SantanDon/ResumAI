@@ -65,7 +65,7 @@ export const HarvardExecutiveTemplate: React.FC<Props> = ({ data }) => {
                                 {exp.description.filter(Boolean).map((bullet, i) => (
                                     <li key={i} className="flex items-start">
                                         <span className="text-gray-400 mr-2">▸</span>
-                                        <span>{bullet}</span>
+                                        <span dangerouslySetInnerHTML={{ __html: bullet }} />
                                     </li>
                                 ))}
                             </ul>

@@ -48,7 +48,7 @@ export const HarvardTemplate: React.FC<TemplateProps> = ({ data }) => {
                             <div className="italic mb-1">{exp.role}</div>
                             <ul className="list-disc ml-5 space-y-1">
                                 {exp.description.map((bullet, idx) => (
-                                    <li key={idx}>{bullet}</li>
+                                    <li key={idx} dangerouslySetInnerHTML={{ __html: bullet }} />
                                 ))}
                             </ul>
                         </div>

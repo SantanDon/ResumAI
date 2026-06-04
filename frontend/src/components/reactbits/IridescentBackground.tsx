@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 interface IridescentBackgroundProps {
   children?: ReactNode;
@@ -9,6 +9,40 @@ export const IridescentBackground: React.FC<IridescentBackgroundProps> = ({
   children,
   className = ''
 }) => {
+  // Inject styles on mount
+  useEffect(() => {
+    const styleId = 'iridescent-bg-styles';
+    if (!document.getElementById(styleId)) {
+      const style = document.createElement('style');
+      style.id = styleId;
+      style.textContent = `
+        @keyframes gradient-x {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+          0% { transform: translate(0, 0) rotate(0deg); }
+          25% { transform: translate(20px, 10px) rotate(5deg); }
+          50% { transform: translate(10px, 20px) rotate(0deg); }
+          75% { transform: translate(0px, 10px) rotate(-5deg); }
+          100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        .animate-gradient-x {
+          background-size: 300% 300%;
+          animation: gradient-x 15s ease infinite;
+        }
+
+        .animate-float {
+          animation: float 8s ease-in-out infinite;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  }, []);
+
   return (
     <div className={`relative min-h-screen w-full min-w-full overflow-hidden ${className}`}>
       {/* Iridescent Background */}
@@ -40,31 +74,6 @@ export const IridescentBackground: React.FC<IridescentBackgroundProps> = ({
       <div className="relative z-10 min-h-screen w-full">
         {children}
       </div>
-
-      <style jsx global>{`
-        @keyframes gradient-x {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-
-        @keyframes float {
-          0% { transform: translate(0, 0) rotate(0deg); }
-          25% { transform: translate(20px, 10px) rotate(5deg); }
-          50% { transform: translate(10px, 20px) rotate(0deg); }
-          75% { transform: translate(0px, 10px) rotate(-5deg); }
-          100% { transform: translate(0, 0) rotate(0deg); }
-        }
-
-        .animate-gradient-x {
-          background-size: 300% 300%;
-          animation: gradient-x 15s ease infinite;
-        }
-
-        .animate-float {
-          animation: float 8s ease-in-out infinite;
-        }
-      `}</style>
     </div>
   );
 };

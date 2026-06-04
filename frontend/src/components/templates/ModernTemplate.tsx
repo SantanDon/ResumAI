@@ -85,7 +85,7 @@ export const ModernTemplate: React.FC<TemplateProps> = ({ data }) => {
                                 <div className="text-sm text-blue-600 font-medium mb-2">{exp.company}</div>
                                 <ul className="list-disc ml-4 space-y-1 text-sm text-gray-700">
                                     {exp.description.map((bullet, idx) => (
-                                        <li key={idx}>{bullet}</li>
+                                        <li key={idx} dangerouslySetInnerHTML={{ __html: bullet }} />
                                     ))}
                                 </ul>
                             </div>

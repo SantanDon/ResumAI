@@ -5,6 +5,7 @@ export interface Experience {
     startDate: string;
     endDate: string;
     description: string[];
+    visible?: boolean;
 }
 
 export interface Education {
@@ -14,6 +15,7 @@ export interface Education {
     startDate: string;
     endDate: string;
     gpa?: string;
+    visible?: boolean;
 }
 
 export interface SkillCategory {
@@ -27,6 +29,7 @@ export interface Project {
     description: string;
     technologies: string[];
     link?: string;
+    visible?: boolean;
 }
 
 export interface CVData {
