@@ -493,7 +493,7 @@ class TemplateRendererService {
   private renderSummary(summary: string, highlights: Set<string>): string {
     return `
     <section class="section">
-      <h2 class="section-title">Professional Summary</h2>
+      <h2 class="section-title">Summary</h2>
       <p class="summary${highlights.has('basics.summary') ? ' changed' : ''}">${summary}</p>
     </section>`;
   }
@@ -647,7 +647,7 @@ class TemplateRendererService {
 
     // Summary
     if (cv.basics.summary) {
-      lines.push('PROFESSIONAL SUMMARY');
+      lines.push('SUMMARY');
       lines.push('-'.repeat(40));
       lines.push(cv.basics.summary);
       lines.push('');

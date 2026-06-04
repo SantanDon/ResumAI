@@ -236,7 +236,7 @@ export const CVTailorPreview: React.FC<CVTailorPreviewProps> = ({
               {/* Summary */}
               {tailoredCV.summary && (
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Professional Summary</h4>
+                  <h4 className="font-semibold text-gray-900 mb-2">Summary</h4>
                   <p className="text-gray-700">{tailoredCV.summary}</p>
                 </div>
               )}

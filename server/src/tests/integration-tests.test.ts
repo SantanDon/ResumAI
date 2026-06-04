@@ -276,7 +276,7 @@ describe('Integration Tests - Resumai Fixes', () => {
       // Step 4: Verify CV contains required sections
       for (const section of industry.requiredSections) {
         if (section === 'summary') {
-          expect(html).toContain('Professional Summary');
+          expect(html).toContain('Summary');
         }
         if (section === 'experience') {
           expect(html).toContain('Professional Experience');

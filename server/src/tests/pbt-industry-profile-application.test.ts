@@ -140,7 +140,7 @@ describe('Property-Based Test: Industry Profile Application', () => {
           for (const section of industry.requiredSections) {
             // Check that section headers are present
             if (section === 'summary' && cv.basics.summary) {
-              expect(html).toContain('Professional Summary');
+              expect(html).toContain('Summary');
             }
             if (section === 'experience' && cv.work && cv.work.length > 0) {
               expect(html).toContain('Professional Experience');

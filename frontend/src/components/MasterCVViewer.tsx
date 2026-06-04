@@ -548,7 +548,7 @@ export const MasterCVViewer: React.FC<MasterCVViewerProps> = ({ userId: propUser
                           <div className="col-span-2 space-y-6">
                             {summary && (
                               <div className="space-y-2">
-                                <h3 className="text-xs font-bold text-slate-900 uppercase tracking-widest border-b border-slate-100 pb-1">Professional Summary</h3>
+                                <h3 className="text-xs font-bold text-slate-900 uppercase tracking-widest border-b border-slate-100 pb-1">Summary</h3>
                                 <p className="text-[11px] text-slate-600 leading-relaxed font-sans">{summary}</p>
                               </div>
                             )}

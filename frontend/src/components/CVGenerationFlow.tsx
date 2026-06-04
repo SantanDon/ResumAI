@@ -373,7 +373,7 @@ const CVPreview: React.FC<{ cv: any; type: string }> = ({ cv, type }) => {
             {/* Summary */}
             {cv.summary && (
                 <div>
-                    <h4 className="text-sm font-medium text-purple-400 mb-2">Professional Summary</h4>
+                    <h4 className="text-sm font-medium text-purple-400 mb-2">Summary</h4>
                     <p className="text-white/85">{cv.summary}</p>
                 </div>
             )}

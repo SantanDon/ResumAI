@@ -213,7 +213,7 @@ class PDFGeneratorService {
         </header>
 
         <section>
-            <div class="section-title">Professional Summary</div>
+            <div class="section-title">Summary</div>
             <div class="summary">${content.summary}</div>
         </section>
 

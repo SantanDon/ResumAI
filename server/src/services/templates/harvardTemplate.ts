@@ -284,7 +284,7 @@ export function renderHarvardTemplate(cv: JSONResume): string {
   if (basics.summary) {
     html += `
     <section class="section">
-      <h2 class="section-title">Professional Summary</h2>
+      <h2 class="section-title">Summary</h2>
       <p class="summary">${basics.summary}</p>
     </section>`;
   }
