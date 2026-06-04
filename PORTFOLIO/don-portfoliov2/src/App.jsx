@@ -183,24 +183,25 @@ const App = () => {
             transition={{ duration: 0.5 }}
             className="section skills-section"
           >
-            <div className="about-container">
+            <div style={{ maxWidth: '1200px', width: '90%' }}>
               <h2 className="section-title">Skills & Competencies</h2>
-              <div className="skills-container" style={{ width: '100%', marginTop: '1rem' }}>
-                <div className="skills-grid" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '3rem' }}>
+              <div className="skills-container" style={{ width: '100%', marginTop: '2rem' }}>
+                <div className="skills-grid" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '4rem' }}>
                   {ABOUT_CONTENT.skills.map((category, i) => (
-                    <div key={i} className="skill-category" style={{ padding: '1rem 0', textAlign: 'left' }}>
-                      <h4 style={{ fontSize: '1rem', fontWeight: '700', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem' }}>{category.category}</h4>
-                      <div className="skill-tags" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', justifyContent: 'flex-start' }}>
+                    <div key={i} className="skill-category" style={{ padding: '0', textAlign: 'left', background: 'none', border: 'none' }}>
+                      <h4 style={{ fontSize: '1.05rem', fontWeight: '700', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '2.5px', marginBottom: '1.75rem' }}>{category.category}</h4>
+                      <div className="skill-tags" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.85rem', justifyContent: 'flex-start' }}>
                         {category.items.map((skill, j) => (
                           <span 
                             key={j} 
                             style={{ 
-                              padding: '0.5rem 1rem', 
+                              padding: '0.55rem 1.1rem', 
                               background: 'rgba(255,255,255,0.03)', 
                               border: '1px solid rgba(255,255,255,0.08)', 
                               borderRadius: '20px', 
-                              fontSize: '0.85rem',
-                              color: '#fff'
+                              fontSize: '0.88rem',
+                              color: '#fff',
+                              whiteSpace: 'nowrap'
                             }}
                           >
                             {skill.name}
@@ -225,18 +226,18 @@ const App = () => {
             transition={{ duration: 0.5 }}
             className="section education-section"
           >
-            <div className="education-page-container">
+            <div style={{ maxWidth: '1200px', width: '90%' }}>
               <h2 className="section-title">Education</h2>
-              <div className="education-grid" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '4rem', width: '100%' }}>
+              <div className="education-grid" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '6rem', width: '100%' }}>
                 {ABOUT_CONTENT.education.map((edu, i) => (
-                  <div key={i} className="education-item" style={{ display: 'flex', flexDirection: 'column', padding: '1rem 0', textAlign: 'left' }}>
+                  <div key={i} className="education-item" style={{ display: 'flex', flexDirection: 'column', padding: '0', textAlign: 'left', background: 'none', border: 'none' }}>
                     <div>
-                      <h4 style={{ fontSize: '1.6rem', fontWeight: '700', marginBottom: '0.5rem', color: '#fff', letterSpacing: '-0.5px' }}>{edu.degree}</h4>
-                      <p className="edu-meta" style={{ color: 'var(--accent)', fontWeight: '600', fontSize: '1.05rem', marginBottom: '1.25rem' }}>{edu.institution}</p>
-                      <p className="edu-desc" style={{ fontSize: '0.95rem', color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: '2rem' }}>{edu.description}</p>
+                      <h4 style={{ fontSize: '1.75rem', fontWeight: '800', marginBottom: '0.5rem', color: '#fff', letterSpacing: '-0.5px' }}>{edu.degree}</h4>
+                      <p className="edu-meta" style={{ color: 'var(--accent)', fontWeight: '600', fontSize: '1.15rem', marginBottom: '1.5rem' }}>{edu.institution}</p>
+                      <p className="edu-desc" style={{ fontSize: '1rem', color: 'var(--text-muted)', lineHeight: '1.8', marginBottom: '2.5rem' }}>{edu.description}</p>
                     </div>
                     {edu.modules && (
-                      <div className="edu-modules" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: 'auto' }}>
+                      <div className="edu-modules" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', marginTop: 'auto' }}>
                         {edu.modules.map((mod, j) => (
                           <span 
                             key={j} 
@@ -244,10 +245,11 @@ const App = () => {
                               background: i === 0 ? 'rgba(209, 154, 154, 0.08)' : 'rgba(189, 231, 189, 0.08)', 
                               border: i === 0 ? '1px solid rgba(209, 154, 154, 0.2)' : '1px solid rgba(189, 231, 189, 0.2)',
                               borderRadius: '20px',
-                              padding: '0.4rem 0.8rem',
-                              fontSize: '0.8rem',
+                              padding: '0.45rem 0.9rem',
+                              fontSize: '0.825rem',
                               color: i === 0 ? '#d19a9a' : '#bde7bd',
-                              fontWeight: '500'
+                              fontWeight: '600',
+                              whiteSpace: 'nowrap'
                             }}
                           >
                             {mod}
@@ -274,36 +276,21 @@ const App = () => {
           >
             <div className="projects-container">
               <h2 className="section-title">Projects</h2>
-              <div className="projects-grid" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '3rem' }}>
+              <div className="projects-grid">
                 {PROJECTS.map((project, i) => (
-                  <div key={i} className="project-card" style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between', padding: '1.5rem 1rem', background: 'transparent', textAlign: 'left' }}>
-                    <div>
-                      <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '0.75rem', color: '#fff', letterSpacing: '-0.5px' }}>{project.title}</h3>
-                      <p style={{ fontSize: '0.92rem', color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: '1.5rem' }}>{project.description}</p>
-                      <div className="project-tech" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '2rem' }}>
-                        {project.tech.map((t, j) => (
-                          <span key={j} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '4px', padding: '0.25rem 0.6rem', fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: '500' }}>{t}</span>
-                        ))}
-                      </div>
+                  <div key={i} className="project-card">
+                    <h3>{project.title}</h3>
+                    <p>{project.description}</p>
+                    <div className="project-tech">
+                      {project.tech.map((t, j) => (
+                        <span key={j} className="tech-tag">{t}</span>
+                      ))}
                     </div>
                     <a 
                       href={project.liveLink} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="cv-btn"
-                      style={{ 
-                        display: 'inline-block',
-                        width: 'fit-content',
-                        padding: '0.6rem 1.5rem',
-                        background: 'transparent',
-                        border: '2px solid var(--accent)',
-                        borderRadius: '8px',
-                        color: 'var(--text)',
-                        fontWeight: '600',
-                        textDecoration: 'none',
-                        textAlign: 'center',
-                        transition: 'all 0.3s ease'
-                      }}
+                      className="project-btn"
                     >
                       View Project
                     </a>
