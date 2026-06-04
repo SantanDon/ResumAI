@@ -150,8 +150,8 @@ const App = () => {
                 </div>
                 
                 <div className="about-text">
-                  {ABOUT_CONTENT.bio.split('\n\n').map((paragraph, index) => (
-                    <p key={index} className="bio" style={{ marginBottom: '1.2rem' }}>{paragraph}</p>
+                  {ABOUT_CONTENT.bio.split('\n\n').map((paragraph) => (
+                    <p key={paragraph.slice(0, 32)} className="bio" style={{ marginBottom: '1.2rem' }}>{paragraph}</p>
                   ))}
                   
                   <button className="cv-btn" onClick={handleDownload}>
@@ -162,8 +162,8 @@ const App = () => {
 
               {/* STATS STRIP */}
               <div className="stats-strip" style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', gap: '1rem', margin: '2.5rem 0 0 0', textAlign: 'center' }}>
-                {STATS.map((stat, idx) => (
-                  <div key={idx} className="stat-card" style={{ background: 'var(--card-bg)', border: '1px solid var(--border)', borderRadius: '12px', padding: '1.2rem' }}>
+                {STATS.map((stat) => (
+                  <div key={stat.label} className="stat-card" style={{ background: 'var(--card-bg)', border: '1px solid var(--border)', borderRadius: '12px', padding: '1.2rem' }}>
                     <div style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--accent)' }}>{stat.value}</div>
                     <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginTop: '0.25rem', letterSpacing: '1px' }}>{stat.label}</div>
                   </div>
@@ -187,12 +187,12 @@ const App = () => {
               <h2 className="section-title">Skills & Competencies</h2>
               <div className="skills-container">
                 <div className="skills-grid">
-                  {ABOUT_CONTENT.skills.map((category, i) => (
-                    <div key={i} className="skill-category">
+                  {ABOUT_CONTENT.skills.map((category) => (
+                    <div key={category.category} className="skill-category">
                       <h4>{category.category}</h4>
                       <div className="skill-tags">
-                        {category.items.map((skill, j) => (
-                          <span key={j} className="skill-tag">
+                        {category.items.map((skill) => (
+                          <span key={skill.name} className="skill-tag">
                             {skill.name}
                           </span>
                         ))}
@@ -218,8 +218,8 @@ const App = () => {
             <div className="education-page-container">
               <h2 className="section-title">Education</h2>
               <div className="education-grid">
-                {ABOUT_CONTENT.education.map((edu, i) => (
-                  <div key={i} className="education-item">
+                {ABOUT_CONTENT.education.map((edu) => (
+                  <div key={edu.institution} className="education-item">
                     <div>
                       <h4>{edu.degree}</h4>
                       <p className="edu-meta">{edu.institution}</p>
@@ -227,10 +227,10 @@ const App = () => {
                     </div>
                     {edu.modules && (
                       <div className="edu-modules">
-                        {edu.modules.map((mod, j) => (
+                        {edu.modules.map((mod) => (
                           <span 
-                            key={j} 
-                            className={i === 0 ? "edu-module-tag-uj" : "edu-module-tag-se"}
+                            key={mod} 
+                            className={edu.institution.includes('Johannesburg') ? "edu-module-tag-uj" : "edu-module-tag-se"}
                           >
                             {mod}
                           </span>
@@ -257,13 +257,13 @@ const App = () => {
             <div className="projects-container">
               <h2 className="section-title">Projects</h2>
               <div className="projects-grid">
-                {PROJECTS.map((project, i) => (
-                  <div key={i} className="project-card">
+                {PROJECTS.map((project) => (
+                  <div key={project.id} className="project-card">
                     <h3>{project.title}</h3>
                     <p>{project.description}</p>
                     <div className="project-tech">
-                      {project.tech.map((t, j) => (
-                        <span key={j} className="tech-tag">{t}</span>
+                      {project.tech.map((t) => (
+                        <span key={t} className="tech-tag">{t}</span>
                       ))}
                     </div>
                     <a 
@@ -305,9 +305,9 @@ const App = () => {
               </div>
 
               <div className="social-links">
-                {CONTACT_CONTENT.links.map((link, i) => (
+                {CONTACT_CONTENT.links.map((link) => (
                   <a 
-                    key={i} 
+                    key={link.label} 
                     href={link.url} 
                     target="_blank" 
                     rel="noopener noreferrer"
@@ -324,12 +324,12 @@ const App = () => {
 
       {/* Navigation Dots */}
       <nav className="nav-dots">
-        {SECTIONS.map((_, i) => (
+        {SECTIONS.map((section, i) => (
           <button
-            key={i}
+            key={section}
             className={`nav-dot ${currentSection === i ? 'active' : ''}`}
             onClick={() => setCurrentSection(i)}
-            aria-label={`Go to ${SECTIONS[i]}`}
+            aria-label={`Go to ${section}`}
           />
         ))}
       </nav>
