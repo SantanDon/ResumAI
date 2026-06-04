@@ -193,88 +193,137 @@ body {
 }
 
 /* Skills */
+.skills-page-container {
+  max-width: 1600px;
+  width: 95%;
+  margin: 0 auto;
+}
+
 .skills-container {
-  margin-bottom: 2rem;
+  width: 100%;
+  margin-top: 2.5rem;
 }
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6rem;
+  width: 100%;
+}
+
+.skill-category {
+  padding: 0;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  text-align: left;
 }
 
 .skill-category h4 {
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 700;
   color: var(--accent);
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 0.75rem;
-  text-align: center;
+  letter-spacing: 2.5px;
+  margin-bottom: 1.75rem;
+  text-align: left;
 }
 
 .skill-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  justify-content: center;
+  gap: 0.85rem;
+  justify-content: flex-start;
 }
 
 .skill-tag {
-  padding: 0.4rem 0.8rem;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
+  padding: 0.55rem 1.1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
-  font-size: 0.8rem;
+  font-size: 0.88rem;
   font-weight: 500;
   color: var(--text);
+  white-space: nowrap;
 }
 
 /* Education */
-.education-container {
-  margin-top: 1.5rem;
-}
-
 .education-section {
   padding-top: 4rem;
 }
 
 .education-page-container {
-  max-width: 800px;
-  width: 100%;
+  max-width: 1600px;
+  width: 95%;
+  margin: 0 auto;
 }
 
 .education-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+  gap: 8rem;
+  width: 100%;
 }
 
 .education-item {
-  padding: 1.5rem;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  padding: 0 !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  text-align: left;
 }
 
 .education-item h4 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--text);
+  font-size: 1.75rem;
+  font-weight: 800;
   margin-bottom: 0.5rem;
+  color: #fff;
+  letter-spacing: -0.5px;
 }
 
 .edu-meta {
-  font-size: 0.9rem;
-  color: var(--accent-highlight);
-  margin-bottom: 0.75rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
 }
 
 .edu-desc {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+}
+
+.edu-modules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: auto;
+}
+
+.edu-module-tag-uj {
+  background: rgba(209, 154, 154, 0.08);
+  border: 1px solid rgba(209, 154, 154, 0.2);
+  border-radius: 20px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.825rem;
+  color: #d19a9a;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.edu-module-tag-se {
+  background: rgba(189, 231, 189, 0.08);
+  border: 1px solid rgba(189, 231, 189, 0.2);
+  border-radius: 20px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.825rem;
+  color: #bde7bd;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 /* PROJECTS SECTION */
@@ -504,48 +553,57 @@ body {
     margin-bottom: 0.75rem;
   }
 
+  .skills-page-container {
+    max-width: 100%;
+    width: 100%;
+  }
+
   .skills-container {
     margin-bottom: 1rem;
   }
 
   .skills-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
   }
 
   .skill-category h4 {
-    font-size: 0.7rem;
-    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    text-align: left;
   }
 
   .skill-tag {
-    font-size: 0.7rem;
-    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
   }
 
   .education-page-container {
     max-width: 100%;
+    width: 100%;
   }
 
   .education-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 3rem;
   }
 
   .education-item {
-    padding: 1rem;
+    padding: 0 !important;
   }
 
   .education-item h4 {
-    font-size: 1rem;
+    font-size: 1.35rem;
   }
 
   .edu-meta {
-    font-size: 0.85rem;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
   }
 
   .edu-desc {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
   }
 
   .projects-container {
@@ -640,17 +698,17 @@ body {
   }
 
   .skills-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 0.5rem;
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 
   .skill-category h4 {
-    font-size: 0.65rem;
+    font-size: 0.85rem;
   }
 
   .skill-tag {
-    font-size: 0.65rem;
-    padding: 0.2rem 0.4rem;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
   }
 
   .project-card h3 {

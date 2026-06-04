@@ -183,27 +183,16 @@ const App = () => {
             transition={{ duration: 0.5 }}
             className="section skills-section"
           >
-            <div style={{ maxWidth: '1200px', width: '90%' }}>
+            <div className="skills-page-container">
               <h2 className="section-title">Skills & Competencies</h2>
-              <div className="skills-container" style={{ width: '100%', marginTop: '2rem' }}>
-                <div className="skills-grid" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '4rem' }}>
+              <div className="skills-container">
+                <div className="skills-grid">
                   {ABOUT_CONTENT.skills.map((category, i) => (
-                    <div key={i} className="skill-category" style={{ padding: '0', textAlign: 'left', background: 'none', border: 'none' }}>
-                      <h4 style={{ fontSize: '1.05rem', fontWeight: '700', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '2.5px', marginBottom: '1.75rem' }}>{category.category}</h4>
-                      <div className="skill-tags" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.85rem', justifyContent: 'flex-start' }}>
+                    <div key={i} className="skill-category">
+                      <h4>{category.category}</h4>
+                      <div className="skill-tags">
                         {category.items.map((skill, j) => (
-                          <span 
-                            key={j} 
-                            style={{ 
-                              padding: '0.55rem 1.1rem', 
-                              background: 'rgba(255,255,255,0.03)', 
-                              border: '1px solid rgba(255,255,255,0.08)', 
-                              borderRadius: '20px', 
-                              fontSize: '0.88rem',
-                              color: '#fff',
-                              whiteSpace: 'nowrap'
-                            }}
-                          >
+                          <span key={j} className="skill-tag">
                             {skill.name}
                           </span>
                         ))}
@@ -226,31 +215,22 @@ const App = () => {
             transition={{ duration: 0.5 }}
             className="section education-section"
           >
-            <div style={{ maxWidth: '1200px', width: '90%' }}>
+            <div className="education-page-container">
               <h2 className="section-title">Education</h2>
-              <div className="education-grid" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: '6rem', width: '100%' }}>
+              <div className="education-grid">
                 {ABOUT_CONTENT.education.map((edu, i) => (
-                  <div key={i} className="education-item" style={{ display: 'flex', flexDirection: 'column', padding: '0', textAlign: 'left', background: 'none', border: 'none' }}>
+                  <div key={i} className="education-item">
                     <div>
-                      <h4 style={{ fontSize: '1.75rem', fontWeight: '800', marginBottom: '0.5rem', color: '#fff', letterSpacing: '-0.5px' }}>{edu.degree}</h4>
-                      <p className="edu-meta" style={{ color: 'var(--accent)', fontWeight: '600', fontSize: '1.15rem', marginBottom: '1.5rem' }}>{edu.institution}</p>
-                      <p className="edu-desc" style={{ fontSize: '1rem', color: 'var(--text-muted)', lineHeight: '1.8', marginBottom: '2.5rem' }}>{edu.description}</p>
+                      <h4>{edu.degree}</h4>
+                      <p className="edu-meta">{edu.institution}</p>
+                      <p className="edu-desc">{edu.description}</p>
                     </div>
                     {edu.modules && (
-                      <div className="edu-modules" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', marginTop: 'auto' }}>
+                      <div className="edu-modules">
                         {edu.modules.map((mod, j) => (
                           <span 
                             key={j} 
-                            style={{ 
-                              background: i === 0 ? 'rgba(209, 154, 154, 0.08)' : 'rgba(189, 231, 189, 0.08)', 
-                              border: i === 0 ? '1px solid rgba(209, 154, 154, 0.2)' : '1px solid rgba(189, 231, 189, 0.2)',
-                              borderRadius: '20px',
-                              padding: '0.45rem 0.9rem',
-                              fontSize: '0.825rem',
-                              color: i === 0 ? '#d19a9a' : '#bde7bd',
-                              fontWeight: '600',
-                              whiteSpace: 'nowrap'
-                            }}
+                            className={i === 0 ? "edu-module-tag-uj" : "edu-module-tag-se"}
                           >
                             {mod}
                           </span>
