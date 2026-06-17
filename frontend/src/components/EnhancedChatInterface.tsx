@@ -165,6 +165,39 @@ export const EnhancedChatInterface: React.FC<EnhancedChatInterfaceProps> = ({ on
     scrollToBottom();
   }, [messages]);
 
+  useEffect(() => {
+    const checkExistingCV = async () => {
+      if (!userId) return;
+      try {
+        const response = await fetch('/api/cv/summary', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId }),
+        });
+        const data = await response.json();
+        if (data.success && data.summary) {
+          setView('chat');
+          setParsingComplete(true);
+          setMessages(prev => {
+            if (prev.length === 0) {
+              return [{
+                id: `sys_${Date.now()}`,
+                role: 'system',
+                content: `✨ **Welcome back to CV Assistant!**\n\n${data.summary.overview}\n\n**Your Top Skills:** ${data.summary.keySkills.slice(0, 5).join(', ')}\n\nI can help you:\n• 🔄 Regenerate your CV in Harvard format\n• ✨ Enhance bullet points with power words\n• 🎯 Tailor for specific jobs\n• 📊 Analyze ATS compatibility`,
+                timestamp: new Date(),
+                type: 'text'
+              }];
+            }
+            return prev;
+          });
+        }
+      } catch (error) {
+        console.log('No existing CV for user:', userId);
+      }
+    };
+    checkExistingCV();
+  }, [userId]);
+
   const addMessage = (role: Message['role'], content: string, type?: Message['type']) => {
     const newMessage: Message = {
       id: `msg_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
